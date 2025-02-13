@@ -13,9 +13,3 @@ To encourage healthy habits, the app features progress _**streaks**_ for regular
 
 This will be useful to all those struggling with eczema. Children and people with additional care needs often struggle more.
 
-
---> Questions for feedback
-- [ ] Are some of these features un-realistic for the time frame?
-- [ ] The smart alert was aiming for the scholarship marks area - would this be met?
-- [ ] Is there a higher detail needed for the app?
-- [ ] When thinking about users - I mentioned those with the condition but this directly affects me and my family members , is that worth mentioning the personal aspect?
