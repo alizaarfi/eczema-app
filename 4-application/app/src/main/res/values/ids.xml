@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="login_btn" type="id" />
+    <item name="logQuestion2" type="id" />
+    <item name="logQuestion1" type="id" />
+    <item name="logQuestion3" type="id" />
+    <item name="logQuestion4" type="id" />
+    <item name="logQuestion5" type="id" />
+    <item name="logQuestion6" type="id" />
+    <item name="logQuestion7" type="id" />
+    <item name="symptomlogs" type="id" />
+</resources>
