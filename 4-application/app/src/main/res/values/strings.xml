@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">mob-dev-portfolio</string>
+    <string name="physical_sensations">physical sensations</string>
+    <string name="mood">mood</string>
+    <string name="body_areas">body areas</string>
+    <string name="treatment">treatment</string>
+    <string name="environment">environment</string>
+    <string name="diet_hydration">diet + hydration</string>
+    <string name="other">other</string>
+    <string name="m">M</string>
+    <string name="t">T</string>
+    <string name="w">W</string>
+    <string name="f">F</string>
+    <string name="s">S</string>
+    <string name="close">Close</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="friday">Friday</string>
+    <string name="thursday">Thursday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="cleanhandsicon">clean hands icon</string>
+    <string name="start">Start</string>
 </resources>
