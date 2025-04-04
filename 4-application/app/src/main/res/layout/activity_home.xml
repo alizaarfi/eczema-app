@@ -1,26 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingHorizontal="8dp"
     tools:context=".HomeActivity">
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!-- Overview Card -->
+        <!-- daily overview card - Fixed at top -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -28,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp">
 
                 <TextView
                     android:id="@+id/tvOverviewTitle"
@@ -44,52 +44,141 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Current Streak: 5 Days\nLast Flare-up: 2 days ago"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivWeatherIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/sunny_icon" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:id="@+id/tvWeatherTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="22°C"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvWeatherCondition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sunny, Low Pollen"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+                    <!--                        android:src="@drawable/ic_calendar" />-->
+
+                    <TextView
+                        android:id="@+id/tvStreakInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="5 Days Logged"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Daily Goals Progress"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressGoals"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:progress="60"
+                    android:progressTint="@color/teal_700" />
+
+                <TextView
+                    android:id="@+id/tvGoalProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="3/5 Completed"
+                    android:textSize="14sp"
+                    android:layout_marginTop="2dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Scrollable List -->
-        <LinearLayout
+        <!-- Title for goals section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Goals"
+            android:textSize="20sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Scrollable goals section -->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:paddingBottom="72dp">
+            android:fillViewport="true"
+            android:layout_marginBottom="60dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Goals!"
-                android:textSize="20sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerItems"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scrollbars="vertical" />
-
-            <EditText
-                android:id="@+id/etGoalInput"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your goal"
-                android:textSize="16sp"
-                android:padding="10dp"
-                android:background="@android:drawable/edit_text" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
 
-        <!-- Add Goal Button -->
-        <Button
-            android:id="@+id/btnAddGoal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Goal"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"/>
+                <EditText
+                    android:id="@+id/etGoalInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your goal"
+                    android:textSize="16sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:drawable/edit_text" />
+
+                <Button
+                    android:id="@+id/btnAddGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Goal"
+                    android:textSize="18sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

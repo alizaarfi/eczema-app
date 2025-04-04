@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_checkbox.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#4CAF50" />
+                    <size android:width="32dp" android:height="32dp" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/checkbox_icon" android:gravity="center" />
+        </layer-list>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="2dp" android:color="#CCCCCC" />
+            <size android:width="28dp" android:height="28dp" />
+        </shape>
+    </item>
+</selector>
