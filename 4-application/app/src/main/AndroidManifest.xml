@@ -9,6 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobdevportfolio">
         <activity
+            android:name=".DailyLog_Activity"
+            android:exported="false"
+            android:label="@string/title_activity_daily_log"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar" />
+        <activity
+            android:name=".DiaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

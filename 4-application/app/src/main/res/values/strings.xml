@@ -22,4 +22,27 @@
     <string name="wednesday">Wednesday</string>
     <string name="cleanhandsicon">clean hands icon</string>
     <string name="start">Start</string>
+    <string name="title_activity_daily_log">DailyLog_Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="save">save</string>
+    <string name="other_notes">other_notes</string>
+    <string name="describe_diet">describe diet</string>
+    <string name="describe_environment">describe environment</string>
+    <string name="describe_treatment">describe treatment</string>
+    <string name="describe_sensations">describe sensations</string>
+    <string name="daily_log">daily log</string>
+    <string name="exercise_sleep">sleep</string>
+
+    <string name="emoji_itchy">🦟</string>
+    <string name="emoji_burning">🔥</string>
+    <string name="emoji_dry">💧</string>
+    <string name="emoji_flaky">🍃</string>
+    <string name="emoji_inflamed">😖</string>
+
+        <!-- You can also include descriptions for accessibility -->
+    <string name="sensation_itchy">Itchy</string>
+    <string name="sensation_burning">Burning</string>
+    <string name="sensation_dry">Dry</string>
+    <string name="sensation_flaky">Flaky</string>
+    <string name="sensation_inflamed">Inflamed</string>
 </resources>
