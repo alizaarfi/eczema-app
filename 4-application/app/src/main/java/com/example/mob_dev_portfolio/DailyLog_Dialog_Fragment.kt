@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.mob_dev_portfolio.databinding.FragmentDailyLogDialogBinding
 
+// Interacts with the view model for the daily log dialog
+// Handles UI elements and user interactions
+// Contains layout setup, button click handling, and lifecycle management
 class DailyLog_Dialog_Fragment : DialogFragment() {
 
     companion object {
@@ -43,12 +46,11 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             dismiss()
         }
 
-
-        // Set up day selector buttons
+        // Set up the different input buttons
         setupDaySelectors()
-
-        // Set up physical sensations emoji buttons
         setupPhysicalSensationsButtons()
+        setUpMoodSelectors()
+        setupBodyAreas()
 
         // Observe ViewModel data
         observeViewModel()
@@ -74,58 +76,136 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             binding.btnInflamed
         )
 
-        // Emojis and their descriptions
+        // Sensation names from string resources
         val sensations = listOf(
-            "Itchy" to getString(R.string.emoji_itchy),
-            "Burning" to "🔥",
-            "Dry" to "💧",
-            "Flaky" to "🍃",
-            "Inflamed" to "😖"
+            getString(R.string.sensation_itchy),
+            getString(R.string.sensation_burning),
+            getString(R.string.sensation_dry),
+            getString(R.string.sensation_flaky),
+            getString(R.string.sensation_inflamed)
         )
 
         // Set up click listeners for each emoji button
         emojiButtons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                // Toggle selection (you can modify this logic as needed)
-                val sensation = sensations[index].first
-                Toast.makeText(context, "$sensation sensation selected", Toast.LENGTH_SHORT).show()
+                val sensation = sensations[index]
+                Toast.makeText(context, "Sensation: $sensation selected", Toast.LENGTH_SHORT).show()
 
-                // Add your selection logic here
+                // Pass to ViewModel
                 viewModel.selectPhysicalSensation(sensation)
             }
         }
     }
 
-//    private fun setUpMoodSelectors() {
-//        val emojiButtons = listOf(
-//            binding.btnVerySad,
-//            binding.btnSad,
-//            binding.btnNeutral,
-//            binding.btnHappy,
-//            binding.btnVeryHappy
-//        )
-//
-//        // Emojis and their descriptions
-//        val sensations = listOf(
-//            "Very Sad" to "android:text=\"\uD83D\uDE2D\"",
-//            "Sad" to "🔥",
-//            "Neutral" to "💧",
-//            "Happy" to "🍃",
-//            "Very Happy" to "😖"
-//        )
-//
-//        // Set up click listeners for each emoji button
-//        emojiButtons.forEachIndexed { index, button ->
-//            button.setOnClickListener {
-//                // Toggle selection (you can modify this logic as needed)
-//                val sensation = sensations[index].first
-//                Toast.makeText(context, "$sensation sensation selected", Toast.LENGTH_SHORT).show()
-//
-//                // Add your selection logic here
-//                viewModel.selectPhysicalSensation(sensation)
-//            }
-//        }
-//    }
+    private fun setUpMoodSelectors() {
+        val moodButtons = listOf(
+            binding.btnVerySad,
+            binding.btnSad,
+            binding.btnNeutral,
+            binding.btnHappy,
+            binding.btnVeryHappy
+        )
+
+        // Mood values using string resources
+        val moods = listOf(
+            getString(R.string.text_very_sad),
+            getString(R.string.text_sad),
+            getString(R.string.text_neutral),
+            getString(R.string.text_happy),
+            getString(R.string.text_very_happy)
+        )
+
+        // Set up click listeners for each mood button
+        moodButtons.forEachIndexed { index, button ->
+            button.setOnClickListener {
+                val mood = moods[index]
+                Toast.makeText(context, "Mood: $mood selected", Toast.LENGTH_SHORT).show()
+                viewModel.selectMood(mood)
+            }
+        }
+    }
+
+    private fun setupBodyAreas() {
+        // Get all body area chips
+        val bodyAreaChips = listOf(
+            binding.chipFace,
+            binding.chipChest,
+            binding.chipBack,
+            binding.chipTorso,
+            binding.chipArmHand,
+            binding.chipLegFeet
+        )
+
+        // Body area names from string resources
+        val bodyAreas = listOf(
+            getString(R.string.text_face),
+            getString(R.string.text_chest),
+            getString(R.string.text_back),
+            getString(R.string.text_torso),
+            getString(R.string.text_arm_hand),
+            getString(R.string.text_leg_feet)
+        )
+
+        // Current selected body area for intensity slider
+        var currentSelectedArea: String? = null
+
+        // Set up each body area chip's click listener
+        bodyAreaChips.forEachIndexed { index, chip ->
+            chip.setOnClickListener {
+                val bodyArea = bodyAreas[index]
+                val isSelected = chip.isChecked
+
+                // Show or hide intensity slider when a body area is selected
+                if (isSelected) {
+                    // Update currently selected area for intensity adjustment
+                    currentSelectedArea = bodyArea
+
+                    // Show intensity slider and update label
+                    binding.bodyAreaIntensityLayout.visibility = View.VISIBLE
+                    binding.bodyAreaIntensityLabel.text = "${getString(R.string.intensity_label)}: $bodyArea"
+
+                    // Set slider to default or existing value
+                    val currentIntensity = viewModel.selectedBodyAreas.value?.get(bodyArea) ?: 1
+                    binding.bodyAreaIntensitySlider.value = currentIntensity.toFloat()
+
+                    // Notify the ViewModel
+                    viewModel.selectBodyArea(bodyArea, true, currentIntensity)
+                } else {
+                    // If the current selected area is being unselected, hide intensity slider
+                    if (bodyArea == currentSelectedArea) {
+                        binding.bodyAreaIntensityLayout.visibility = View.GONE
+                        currentSelectedArea = null
+                    }
+
+                    // Notify the ViewModel that this area is deselected
+                    viewModel.selectBodyArea(bodyArea, false)
+                }
+
+                Toast.makeText(
+                    context,
+                    if (isSelected) "$bodyArea selected" else "$bodyArea deselected",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        // Intensity slider change listener
+        binding.bodyAreaIntensitySlider.addOnChangeListener { slider, value, fromUser ->
+            if (fromUser && currentSelectedArea != null) {
+                val intensity = value.toInt()
+                viewModel.updateBodyAreaIntensity(currentSelectedArea!!, intensity)
+            }
+        }
+
+        // Observe selected body areas from ViewModel
+        viewModel.selectedBodyAreas.observe(viewLifecycleOwner) { selectedAreas ->
+            // Update chips to match the ViewModel state
+            bodyAreaChips.forEachIndexed { index, chip ->
+                val bodyArea = bodyAreas[index]
+                chip.isChecked = selectedAreas.containsKey(bodyArea)
+            }
+        }
+    }
 
     private fun observeViewModel() {
         // Day selector observation

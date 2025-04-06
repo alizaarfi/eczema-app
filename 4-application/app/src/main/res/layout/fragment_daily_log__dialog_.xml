@@ -166,13 +166,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🦟"
+                            android:text="@string/emoji_itchy"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Itchy"
+                            android:text="@string/sensation_itchy"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -190,13 +190,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🔥"
+                            android:text="@string/emoji_burning"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Burning"
+                            android:text="@string/sensation_burning"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -214,13 +214,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💧"
+                            android:text="@string/emoji_dry"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dry"
+                            android:text="@string/sensation_dry"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -238,13 +238,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🍃"
+                            android:text="@string/emoji_flaky"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Flaky"
+                            android:text="@string/sensation_flaky"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -262,19 +262,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😖"
+                            android:text="@string/emoji_inflamed"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Inflamed"
+                            android:text="@string/sensation_inflamed"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <!--mood -->
             <TextView
                 android:id="@+id/logQuestion2"
                 android:layout_width="0dp"
@@ -316,13 +317,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😭"
+                            android:text="@string/emoji_very_sad"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Very Sad"
+                            android:text="@string/text_very_sad"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -341,13 +342,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😞"
+                            android:text="@string/emoji_sad"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sad"
+                            android:text="@string/text_sad"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -366,13 +367,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😐"
+                            android:text="@string/emoji_neutral"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Neutral"
+                            android:text="@string/text_neutral"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -391,13 +392,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😊"
+                            android:text="@string/emoji_happy"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Happy"
+                            android:text="@string/text_happy"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -416,13 +417,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😄"
+                            android:text="@string/emoji_very_happy"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Very Happy"
+                            android:text="@string/text_very_happy"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -464,42 +465,42 @@
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Face"/>
+                        android:text="@string/text_face"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipChest"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chest"/>
+                        android:text="@string/text_chest"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipBack"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Back"/>
+                        android:text="@string/text_back"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTorso"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Torso"/>
+                        android:text="@string/text_torso"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipArmHand"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arm/Hand"/>
+                        android:text="@string/text_arm_hand"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipLegFeet"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Leg/Feet"/>
+                        android:text="@string/text_leg_feet"/>
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
@@ -520,7 +521,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Intensity"
+                    android:text="@string/intensity_label"
                     android:textSize="16sp"/>
 
                 <com.google.android.material.slider.Slider
@@ -548,21 +549,21 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Mild"
+                        android:text="@string/intensity_mild"
                         android:gravity="start"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Moderate"
+                        android:text="@string/intensity_moderate"
                         android:gravity="center"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Severe"
+                        android:text="@string/intensity_severe"
                         android:gravity="end"/>
                 </LinearLayout>
             </LinearLayout>
@@ -610,13 +611,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🛁"
+                            android:text="@string/emoji_bath"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bathing"
+                            android:text="@string/label_bath"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -635,13 +636,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🧴"
+                            android:text="@string/emoji_moisturiser"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Moisturiser"
+                            android:text="@string/label_moisturiser"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -660,13 +661,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌿"
+                            android:text="@string/emoji_non_steroid"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Non-Steroid"
+                            android:text="@string/label_non_steroid"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -685,13 +686,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💊"
+                            android:text="@string/emoji_steroids"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Steroids"
+                            android:text="@string/label_steroids"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -710,13 +711,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="❓"
+                            android:text="@string/emoji_other_treatment"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Other"
+                            android:text="@string/label_other_treatment"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -766,13 +767,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="❄️"
+                            android:text="@string/emoji_cold"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cold"
+                            android:text="@string/label_cold"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -791,13 +792,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌞"
+                            android:text="@string/emoji_hot"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hot"
+                            android:text="@string/label_hot"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -816,13 +817,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌤️"
+                            android:text="@string/emoji_moderate"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Moderate"
+                            android:text="@string/label_moderate"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -841,13 +842,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💦"
+                            android:text="@string/emoji_humid"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Humid"
+                            android:text="@string/label_humid"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -866,13 +867,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌼"
+                            android:text="@string/emoji_pollen"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pollen"
+                            android:text="@string/label_pollen"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -891,13 +892,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🏊‍♀️"
+                            android:text="@string/emoji_chlorine"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chlorine"
+                            android:text="@string/label_chlorine"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -916,13 +917,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🌫️"
+                            android:text="@string/emoji_dust"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dust"
+                            android:text="@string/label_dust"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -973,13 +974,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="💧"
+                            android:text="@string/emoji_hydrated"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hydrated"
+                            android:text="@string/label_hydrated"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -998,13 +999,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🍷"
+                            android:text="@string/emoji_alcohol"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Alcohol"
+                            android:text="@string/label_alcohol"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -1023,13 +1024,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🥗"
+                            android:text="@string/emoji_5_a_day"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5 A Day"
+                            android:text="@string/label_hydrated"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -1048,13 +1049,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🚫"
+                            android:text="@string/emoji_allergy_trigger"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Allergy Food"
+                            android:text="@string/label_allergy_trigger"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -1103,13 +1104,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🏋️"
+                            android:text="@string/emoji_exercise"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Exercise"
+                            android:text="@string/label_exercise"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -1128,13 +1129,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="😴"
+                            android:text="@string/emoji_sleep"
                             android:textSize="56sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sleep"
+                            android:text="@string/label_sleep"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
@@ -1149,7 +1150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
-        android:text="SAVE"
+        android:text="@string/save"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         app:backgroundTint="@color/primary"

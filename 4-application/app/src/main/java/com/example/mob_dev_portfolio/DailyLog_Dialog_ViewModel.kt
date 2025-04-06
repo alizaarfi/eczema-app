@@ -58,6 +58,39 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
         _selectedEnvironments.value = toggleSelection(_selectedEnvironments.value, environment)
     }
 
+    // Body areas selection with intensity
+    data class BodyAreaSelection(
+        val area: String,
+        val intensity: Int = 1  // Default to moderate (1)
+    )
+
+    // Body areas selection
+    private val _selectedBodyAreas = MutableLiveData<MutableMap<String, Int>>(mutableMapOf())
+    val selectedBodyAreas: LiveData<MutableMap<String, Int>> = _selectedBodyAreas
+
+    // Select or update body area with intensity
+    fun selectBodyArea(area: String, selected: Boolean, intensity: Int = 1) {
+        val currentSelections = _selectedBodyAreas.value ?: mutableMapOf()
+
+        if (selected) {
+            currentSelections[area] = intensity
+        } else {
+            currentSelections.remove(area)
+        }
+
+        _selectedBodyAreas.value = currentSelections
+    }
+
+    // Update intensity for a selected body area
+    fun updateBodyAreaIntensity(area: String, intensity: Int) {
+        val currentSelections = _selectedBodyAreas.value ?: mutableMapOf()
+
+        if (currentSelections.containsKey(area)) {
+            currentSelections[area] = intensity
+            _selectedBodyAreas.value = currentSelections
+        }
+    }
+
     // Save log entry
     fun saveLogEntry(
         physicalSensations: String,
