@@ -89,3 +89,25 @@ Student ID: `23031398`
 - The app must be modular, allowing for future updates and feature expansions (e.g., additional tracking options, AI-based insights).
 - Logs should be stored efficiently, ensuring smooth performance even with high data volume over time.
 - The app should be well-documented for ease of maintenance and troubleshooting.
+
+<!-- 
+This is a really comprehensive set of requirements – I think breaking them down by bigger units of functionality have really helped you in making sure that they are comprehensive and covering off what's required for each unit. Here are some further thoughts:
+
+- It can be a little tricky to interpret 'e.g.' or 'etc' in requirements. Is the idea that the symptoms logging will be free text and that you've provided examples, or will these be options on a list (as I think the next requirement expects)? If it's the latter, those options are more i.e., than e.g., perhaps?
+
+- Does the daily logging only permit one log per day, or does it permit as many as the user wants to add?
+
+- What is the significance of someone being able to filter in the Food section, but not the Symptom section? (e.g., filter by severity?)
+
+- Are all of these options on the bottom nav view? If so I wonder if it might be getting a little full. Alternatively, can you be a bit clearer about where in the view hierarchy these different functions will appear?
+
+- Ten seconds is a long time to wait for anything to happen on a smartphone – there there a reason that it is necessary to give this component so long to respond? (And how could you make sure that the user understands it hasn't simply crashed?)
+
+- How will you determine whether the implementation is intuitive? (How would you reconcile a dispute with another developer if they did the implementation and thought it was intuitive, but you thought that it wasn't?)
+
+- I like the offline functionality.
+
+- You seem to have two different NFRs to do with being able to handle logs. Is this correct? Have I missed the point and they are actually different?
+
+This is well on the way – largely detailed and specific. Keep at it.
+-->
