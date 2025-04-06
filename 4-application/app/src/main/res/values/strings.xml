@@ -45,4 +45,98 @@
     <string name="sensation_dry">Dry</string>
     <string name="sensation_flaky">Flaky</string>
     <string name="sensation_inflamed">Inflamed</string>
+
+    <!-- Mood Emoji Strings -->
+    <string name="emoji_very_sad">😭</string>
+    <string name="text_very_sad">Very Sad</string>
+
+    <string name="emoji_sad">😞</string>
+    <string name="text_sad">Sad</string>
+
+    <string name="emoji_neutral">😐</string>
+    <string name="text_neutral">Neutral</string>
+
+    <string name="emoji_happy">😊</string>
+    <string name="text_happy">Happy</string>
+
+    <string name="emoji_very_happy">😄</string>
+    <string name="text_very_happy">Very Happy</string>
+
+    <!-- Body Area Names -->
+    <string name="text_face">Face</string>
+    <string name="text_chest">Chest</string>
+    <string name="text_back">Back</string>
+    <string name="text_torso">Torso</string>
+    <string name="text_arm_hand">Arm/Hand</string>
+    <string name="text_leg_feet">Leg/Feet</string>
+
+    <!-- Intensity Labels -->
+    <string name="intensity_label">Intensity</string>
+    <string name="intensity_mild">Mild</string>
+    <string name="intensity_moderate">Moderate</string>
+    <string name="intensity_severe">Severe</string>
+
+    <!-- Treatment Section Emojis and Labels -->
+    <string name="emoji_bath">🛁</string>
+    <string name="label_bath">Bathing</string>
+
+    <string name="emoji_moisturiser">🧴</string>
+    <string name="label_moisturiser">Moisturiser</string>
+
+    <string name="emoji_non_steroid">🌿</string>
+    <string name="label_non_steroid">Non-Steroid</string>
+
+    <string name="emoji_steroids">💊</string>
+    <string name="label_steroids">Steroids</string>
+
+    <string name="emoji_other_treatment">❓</string>
+    <string name="label_other_treatment">Other</string>
+
+    <!-- Environment Section Emojis and Labels -->
+    <string name="emoji_cold">❄️</string>
+    <string name="label_cold">Cold</string>
+
+    <string name="emoji_hot">🌞</string>
+    <string name="label_hot">Hot</string>
+
+    <string name="emoji_moderate">🌤️</string>
+    <string name="label_moderate">Moderate</string>
+
+    <string name="emoji_humid">💦</string>
+    <string name="label_humid">Humid</string>
+
+    <string name="emoji_pollen">🌼</string>
+    <string name="label_pollen">Pollen</string>
+
+    <string name="emoji_chlorine">🏊‍♀️</string>
+    <string name="label_chlorine">Chlorine</string>
+
+    <string name="emoji_dust">🌫️</string>
+    <string name="label_dust">Dust</string>
+
+    <!-- Diet and Hydration Section Emojis and Labels -->
+    <string name="emoji_hydrated">💧</string>
+    <string name="label_hydrated">Hydrated</string>
+
+    <string name="emoji_alcohol">🍷</string>
+    <string name="label_alcohol">Alcohol</string>
+
+    <string name="emoji_5_a_day">🥗</string>
+    <string name="label_5_a_day">5 A Day</string>
+
+    <string name="emoji_allergy_trigger">🚫</string>
+    <string name="label_allergy_trigger">Allergy Food</string>
+
+    <!-- Exercise and Sleep Section Emojis and Labels -->
+    <string name="emoji_exercise">🏋️</string>
+    <string name="label_exercise">Exercise</string>
+
+    <string name="emoji_sleep">😴</string>
+    <string name="label_sleep">Sleep</string>
+
+    <!-- Section Headers -->
+    <string name="section_title_treatment">Treatment</string>
+    <string name="section_title_environment">Environment</string>
+    <string name="section_title_diet_hydration">Diet and Hydration</string>
+    <string name="section_title_exercise_sleep">Exercise and Sleep</string>
 </resources>
