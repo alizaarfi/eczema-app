@@ -16,6 +16,8 @@ import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+
+
     private lateinit var goalAdapter: GoalAdapter
     private val goalsList = mutableListOf<GoalAdapter.Goal>() // Using your existing Goal class
 
