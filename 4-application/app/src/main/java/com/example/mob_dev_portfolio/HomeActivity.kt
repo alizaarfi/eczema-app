@@ -15,12 +15,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import com.google.android.material.navigation.NavigationView
 import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
-
 
     private lateinit var goalAdapter: GoalAdapter
     private val goalsList = mutableListOf<GoalAdapter.Goal>() // Using your existing Goal class
@@ -37,6 +37,9 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val navView: NavigationView = binding.navView
+
         setSupportActionBar(binding.toolbar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -55,6 +58,18 @@ class HomeActivity : AppCompatActivity() {
         binding.main.addDrawerListener(toggle)
         toggle.syncState()
 
+        navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_settings -> {
+                    // Handle Settings item click
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+
         // Setup RecyclerView with your existing adapter
         goalAdapter = GoalAdapter(goalsList)
         binding.recyclerItems.layoutManager = LinearLayoutManager(this)
@@ -68,6 +83,7 @@ class HomeActivity : AppCompatActivity() {
                 binding.etGoalInput.text.clear()
             }
         }
+
 
 //        // Initialize managers
 //        weatherManager = WeatherManager(this)
@@ -92,14 +108,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-//            R.id.menu_settings -> {
-//                // do something
-//                true
-//            }
-//            R.id.menu_about -> {
-//                // do something else
-//                true
-//            }
+            R.id.navigation_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

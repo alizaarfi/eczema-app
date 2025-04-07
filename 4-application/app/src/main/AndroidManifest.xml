@@ -9,12 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobdevportfolio">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name=".DiaryActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
