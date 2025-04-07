@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DailyLog_Dialog_Fragment">
 
-    <!-- Close button at the top-right -->
+    <!-- Header Section -->
     <ImageButton
         android:id="@+id/btnClose"
         android:layout_width="48dp"
@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/black" />
 
-    <!-- Add a title -->
     <TextView
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
@@ -33,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnClose" />
 
-    <!-- ScrollView to make content scrollable -->
+    <!-- Main Content ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -123,7 +122,7 @@
                     android:textOn="@string/s" />
             </LinearLayout>
 
-            <!-- Health tracking questions -->
+            <!-- Physical Sensations Section -->
             <TextView
                 android:id="@+id/logQuestion1"
                 android:layout_width="0dp"
@@ -144,138 +143,9 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Large Emoji Buttons -->
-                    <LinearLayout
-                        android:id="@+id/btnItchy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_itchy"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sensation_itchy"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btnBurning"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_burning"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sensation_burning"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btnDry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_dry"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sensation_dry"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btnFlaky"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_flaky"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sensation_flaky"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btnInflamed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_inflamed"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sensation_inflamed"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!--mood -->
+            <!-- Mood Section -->
             <TextView
                 android:id="@+id/logQuestion2"
                 android:layout_width="0dp"
@@ -295,142 +165,9 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Very Sad -->
-                    <LinearLayout
-                        android:id="@+id/btnVerySad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_very_sad"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_very_sad"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Sad -->
-                    <LinearLayout
-                        android:id="@+id/btnSad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_sad"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_sad"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Neutral -->
-                    <LinearLayout
-                        android:id="@+id/btnNeutral"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_neutral"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_neutral"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Happy -->
-                    <LinearLayout
-                        android:id="@+id/btnHappy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_happy"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_happy"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Very Happy -->
-                    <LinearLayout
-                        android:id="@+id/btnVeryHappy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_very_happy"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_very_happy"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- Remaining sections are unchanged -->
+            <!-- Body Areas Section -->
             <TextView
                 android:id="@+id/logQuestion3"
                 android:layout_width="0dp"
@@ -444,7 +181,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/moodEmojiScrollView" />
 
-            <!-- Body Areas Selection Section -->
             <HorizontalScrollView
                 android:id="@+id/bodyAreasScrollView"
                 android:layout_width="match_parent"
@@ -504,7 +240,7 @@
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
-            <!-- Intensity SeekBar for selected body area (initially hidden) -->
+            <!-- Intensity Slider (initially hidden) -->
             <LinearLayout
                 android:id="@+id/bodyAreaIntensityLayout"
                 android:layout_width="0dp"
@@ -526,7 +262,7 @@
 
                 <com.google.android.material.slider.Slider
                     android:id="@+id/bodyAreaIntensitySlider"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
@@ -568,6 +304,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Treatment Section -->
             <TextView
                 android:id="@+id/logQuestion4"
                 android:layout_width="0dp"
@@ -581,7 +318,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bodyAreaIntensityLayout" />
 
-            <!-- Treatment Emoji Buttons Section -->
             <HorizontalScrollView
                 android:id="@+id/treatmentEmojiScrollView"
                 android:layout_width="match_parent"
@@ -589,141 +325,9 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Bathing -->
-                    <LinearLayout
-                        android:id="@+id/btnBathing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_bath"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_bath"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Moisturiser -->
-                    <LinearLayout
-                        android:id="@+id/btnMoisturiser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_moisturiser"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_moisturiser"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Topical Non-Steroids -->
-                    <LinearLayout
-                        android:id="@+id/btnTopicalNonSteroids"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_non_steroid"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_non_steroid"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Steroids -->
-                    <LinearLayout
-                        android:id="@+id/btnSteroids"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_steroids"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_steroids"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Other -->
-                    <LinearLayout
-                        android:id="@+id/btnOtherTreatment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_other_treatment"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_other_treatment"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
+            <!-- Environment Section -->
             <TextView
                 android:id="@+id/logQuestion5"
                 android:layout_width="0dp"
@@ -737,7 +341,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/treatmentEmojiScrollView" />
 
-            <!-- Environment ImageButtons Section -->
             <HorizontalScrollView
                 android:id="@+id/environmentScrollView"
                 android:layout_width="0dp"
@@ -745,192 +348,9 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Cold Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnCold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_cold"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_cold"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Hot Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnHot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_hot"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_hot"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Moderate Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnModerate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_moderate"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_moderate"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Humid Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnHumid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_humid"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_humid"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Pollen Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnPollen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_pollen"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_pollen"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Chlorine Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnChlorine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_chlorine"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_chlorine"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Dust Environment -->
-                    <LinearLayout
-                        android:id="@+id/btnDust"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_dust"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_dust"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-
+            <!-- Diet and Hydration Section -->
             <TextView
                 android:id="@+id/logQuestion6"
                 android:layout_width="0dp"
@@ -944,7 +364,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/environmentScrollView" />
 
-            <!-- Diet and Hydration Buttons Section -->
             <HorizontalScrollView
                 android:id="@+id/dietHydrationScrollView"
                 android:layout_width="match_parent"
@@ -952,115 +371,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion6"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Hydrated -->
-                    <LinearLayout
-                        android:id="@+id/btnHydrated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_hydrated"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_hydrated"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Alcohol -->
-                    <LinearLayout
-                        android:id="@+id/btnAlcohol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_alcohol"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_alcohol"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- 5 A Day -->
-                    <LinearLayout
-                        android:id="@+id/btn5ADay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_5_a_day"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_hydrated"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Allergy Trigger Food -->
-                    <LinearLayout
-                        android:id="@+id/btnAllergyTrigger"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_allergy_trigger"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_allergy_trigger"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Exercise and Sleep Section -->
             <TextView
@@ -1082,69 +393,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/logQuestion7"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <!-- Exercise -->
-                    <LinearLayout
-                        android:id="@+id/btnExercise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_exercise"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_exercise"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Sleep -->
-                    <LinearLayout
-                        android:id="@+id/btnSleep"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_margin="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emoji_sleep"
-                            android:textSize="56sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/label_sleep"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <!-- Save Button -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
@@ -1157,8 +411,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
