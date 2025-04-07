@@ -5,7 +5,12 @@
         android:icon="@drawable/resources_icon"
         android:title="Educational Resources"/>
     <item
+        android:id="@+id/navigation_insights"
+        android:icon="@drawable/insights_icon"
+        android:title="Insights"/>
+    <item
         android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings_icon"
         android:title="Settings"/>
 
 </menu>
