@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mob_dev_portfolio.databinding.FragmentDailyLogDialogBinding
 
-// Interacts with the view model for the daily log dialog
-// Handles UI elements and user interactions
-// Contains layout setup, button click handling, and lifecycle management
 class DailyLog_Dialog_Fragment : DialogFragment() {
 
     companion object {
@@ -48,9 +46,20 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
 
         // Set up the different input buttons
         setupDaySelectors()
-        setupPhysicalSensationsButtons()
-        setUpMoodSelectors()
+        setupPhysicalSensationsRecyclerView()
+        setupMoodRecyclerView()
         setupBodyAreas()
+        setupTreatmentRecyclerView()
+        setupEnvironmentRecyclerView()
+        setupDietHydrationRecyclerView()
+        setupExerciseSleepRecyclerView()
+
+        // Set up save button
+        binding.saveButton.setOnClickListener {
+            saveLogEntry()
+            Toast.makeText(context, getString(R.string.log_saved), Toast.LENGTH_SHORT).show()
+            dismiss()
+        }
 
         // Observe ViewModel data
         observeViewModel()
@@ -66,63 +75,306 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         binding.btnSunday.setOnClickListener { viewModel.toggleDay(6) }
     }
 
-    private fun setupPhysicalSensationsButtons() {
-        // List of emoji buttons to set up
-        val emojiButtons = listOf(
-            binding.btnItchy,
-            binding.btnBurning,
-            binding.btnDry,
-            binding.btnFlaky,
-            binding.btnInflamed
+    private fun setupPhysicalSensationsRecyclerView() {
+        // Create list of sensation emoji buttons
+        val sensationButtons = listOf(
+            EmojiButton(
+                "itchy",
+                getString(R.string.emoji_itchy),
+                getString(R.string.sensation_itchy)
+            ),
+            EmojiButton(
+                "burning",
+                getString(R.string.emoji_burning),
+                getString(R.string.sensation_burning)
+            ),
+            EmojiButton(
+                "dry",
+                getString(R.string.emoji_dry),
+                getString(R.string.sensation_dry)
+            ),
+            EmojiButton(
+                "flaky",
+                getString(R.string.emoji_flaky),
+                getString(R.string.sensation_flaky)
+            ),
+            EmojiButton(
+                "inflamed",
+                getString(R.string.emoji_inflamed),
+                getString(R.string.sensation_inflamed)
+            )
         )
 
-        // Sensation names from string resources
-        val sensations = listOf(
-            getString(R.string.sensation_itchy),
-            getString(R.string.sensation_burning),
-            getString(R.string.sensation_dry),
-            getString(R.string.sensation_flaky),
-            getString(R.string.sensation_inflamed)
-        )
-
-        // Set up click listeners for each emoji button
-        emojiButtons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                val sensation = sensations[index]
-                Toast.makeText(context, "Sensation: $sensation selected", Toast.LENGTH_SHORT).show()
-
-                // Pass to ViewModel
-                viewModel.selectPhysicalSensation(sensation)
+        // Create RecyclerView for physical sensations
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(sensationButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.sensation_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectPhysicalSensation(button.label)
             }
         }
+
+        // Add RecyclerView to the container
+        binding.emojiScrollView.removeAllViews()
+        binding.emojiScrollView.addView(recyclerView)
     }
 
-    private fun setUpMoodSelectors() {
+    private fun setupMoodRecyclerView() {
+        // Create list of mood emoji buttons
         val moodButtons = listOf(
-            binding.btnVerySad,
-            binding.btnSad,
-            binding.btnNeutral,
-            binding.btnHappy,
-            binding.btnVeryHappy
+            EmojiButton(
+                "very_sad",
+                getString(R.string.emoji_very_sad),
+                getString(R.string.text_very_sad)
+            ),
+            EmojiButton(
+                "sad",
+                getString(R.string.emoji_sad),
+                getString(R.string.text_sad)
+            ),
+            EmojiButton(
+                "neutral",
+                getString(R.string.emoji_neutral),
+                getString(R.string.text_neutral)
+            ),
+            EmojiButton(
+                "happy",
+                getString(R.string.emoji_happy),
+                getString(R.string.text_happy)
+            ),
+            EmojiButton(
+                "very_happy",
+                getString(R.string.emoji_very_happy),
+                getString(R.string.text_very_happy)
+            )
         )
 
-        // Mood values using string resources
-        val moods = listOf(
-            getString(R.string.text_very_sad),
-            getString(R.string.text_sad),
-            getString(R.string.text_neutral),
-            getString(R.string.text_happy),
-            getString(R.string.text_very_happy)
-        )
-
-        // Set up click listeners for each mood button
-        moodButtons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                val mood = moods[index]
-                Toast.makeText(context, "Mood: $mood selected", Toast.LENGTH_SHORT).show()
-                viewModel.selectMood(mood)
+        // Create RecyclerView for mood selection
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(moodButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.mood_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectMood(button.label)
             }
         }
+
+        // Add RecyclerView to the container
+        binding.moodEmojiScrollView.removeAllViews()
+        binding.moodEmojiScrollView.addView(recyclerView)
+    }
+
+    private fun setupTreatmentRecyclerView() {
+        // Create list of treatment emoji buttons
+        val treatmentButtons = listOf(
+            EmojiButton(
+                "bath",
+                getString(R.string.emoji_bath),
+                getString(R.string.label_bath)
+            ),
+            EmojiButton(
+                "moisturiser",
+                getString(R.string.emoji_moisturiser),
+                getString(R.string.label_moisturiser)
+            ),
+            EmojiButton(
+                "non_steroid",
+                getString(R.string.emoji_non_steroid),
+                getString(R.string.label_non_steroid)
+            ),
+            EmojiButton(
+                "steroids",
+                getString(R.string.emoji_steroids),
+                getString(R.string.label_steroids)
+            ),
+            EmojiButton(
+                "other_treatment",
+                getString(R.string.emoji_other_treatment),
+                getString(R.string.label_other_treatment)
+            )
+        )
+
+        // Create RecyclerView for treatments
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(treatmentButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.treatment_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectTreatment(button.label)
+            }
+        }
+
+        // Add RecyclerView to the container
+        binding.treatmentEmojiScrollView.removeAllViews()
+        binding.treatmentEmojiScrollView.addView(recyclerView)
+    }
+
+    private fun setupEnvironmentRecyclerView() {
+        // Create list of environment emoji buttons
+        val environmentButtons = listOf(
+            EmojiButton(
+                "cold",
+                getString(R.string.emoji_cold),
+                getString(R.string.label_cold)
+            ),
+            EmojiButton(
+                "hot",
+                getString(R.string.emoji_hot),
+                getString(R.string.label_hot)
+            ),
+            EmojiButton(
+                "moderate",
+                getString(R.string.emoji_moderate),
+                getString(R.string.label_moderate)
+            ),
+            EmojiButton(
+                "humid",
+                getString(R.string.emoji_humid),
+                getString(R.string.label_humid)
+            ),
+            EmojiButton(
+                "pollen",
+                getString(R.string.emoji_pollen),
+                getString(R.string.label_pollen)
+            ),
+            EmojiButton(
+                "chlorine",
+                getString(R.string.emoji_chlorine),
+                getString(R.string.label_chlorine)
+            ),
+            EmojiButton(
+                "dust",
+                getString(R.string.emoji_dust),
+                getString(R.string.label_dust)
+            )
+        )
+
+        // Create RecyclerView for environment
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(environmentButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.environment_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectEnvironment(button.label)
+            }
+        }
+
+        // Add RecyclerView to the container
+        binding.environmentScrollView.removeAllViews()
+        binding.environmentScrollView.addView(recyclerView)
+    }
+
+    private fun setupDietHydrationRecyclerView() {
+        // Create list of diet/hydration emoji buttons
+        val dietButtons = listOf(
+            EmojiButton(
+                "hydrated",
+                getString(R.string.emoji_hydrated),
+                getString(R.string.label_hydrated)
+            ),
+            EmojiButton(
+                "alcohol",
+                getString(R.string.emoji_alcohol),
+                getString(R.string.label_alcohol)
+            ),
+            EmojiButton(
+                "five_a_day",
+                getString(R.string.emoji_5_a_day),
+                getString(R.string.label_5_a_day)
+            ),
+            EmojiButton(
+                "allergy_trigger",
+                getString(R.string.emoji_allergy_trigger),
+                getString(R.string.label_allergy_trigger)
+            )
+        )
+
+        // Create RecyclerView for diet/hydration
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(dietButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.diet_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectDietHydration(button.label)
+            }
+        }
+
+        // Add RecyclerView to the container
+        binding.dietHydrationScrollView.removeAllViews()
+        binding.dietHydrationScrollView.addView(recyclerView)
+    }
+
+    private fun setupExerciseSleepRecyclerView() {
+        // Create list of exercise/sleep emoji buttons
+        val exerciseButtons = listOf(
+            EmojiButton(
+                "exercise",
+                getString(R.string.emoji_exercise),
+                getString(R.string.label_exercise)
+            ),
+            EmojiButton(
+                "sleep",
+                getString(R.string.emoji_sleep),
+                getString(R.string.label_sleep)
+            )
+        )
+
+        // Create RecyclerView for exercise/sleep
+        val recyclerView = RecyclerView(requireContext()).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = EmojiButtonAdapter(exerciseButtons) { button ->
+                Toast.makeText(
+                    context,
+                    getString(R.string.exercise_selected_format, button.label),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.selectExerciseSleep(button.label)
+            }
+        }
+
+        // Add RecyclerView to the container
+        binding.exerciseSleepScrollView.removeAllViews()
+        binding.exerciseSleepScrollView.addView(recyclerView)
     }
 
     private fun setupBodyAreas() {
@@ -183,7 +435,10 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
 
                 Toast.makeText(
                     context,
-                    if (isSelected) "$bodyArea selected" else "$bodyArea deselected",
+                    if (isSelected)
+                        getString(R.string.body_area_selected_format, bodyArea)
+                    else
+                        getString(R.string.body_area_deselected_format, bodyArea),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -221,19 +476,23 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
     }
 
     private fun saveLogEntry() {
-        // Update to match new layout and emoji selections
+        // Collect data from ViewModel
         val physicalSensations = viewModel.selectedPhysicalSensations.value?.joinToString(", ") ?: ""
-//        val mood = binding.moodSeekBar.progress
+        val mood = viewModel.selectedMood.value ?: ""
+        val treatments = viewModel.selectedTreatments.value?.joinToString(", ") ?: ""
+        val environments = viewModel.selectedEnvironments.value?.joinToString(", ") ?: ""
+        val dietHydration = viewModel.selectedDietHydration.value?.joinToString(", ") ?: ""
+        val exerciseSleep = viewModel.selectedExerciseSleep.value?.joinToString(", ") ?: ""
 
-//        // Pass data to ViewModel to save
-//        viewModel.saveLogEntry(
-//            physicalSensations,
-//            mood,
-//            treatment,
-//            environment,
-//            diet,
-//            other
-//        )
+        // Create a complete log entry
+        viewModel.saveLogEntry(
+            physicalSensations,
+            mood,
+            treatments,
+            environments,
+            dietHydration,
+            exerciseSleep
+        )
     }
 
     override fun onStart() {

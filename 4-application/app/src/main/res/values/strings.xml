@@ -139,4 +139,15 @@
     <string name="section_title_environment">Environment</string>
     <string name="section_title_diet_hydration">Diet and Hydration</string>
     <string name="section_title_exercise_sleep">Exercise and Sleep</string>
+
+    <!-- Toast messages for selections -->
+    <string name="sensation_selected_format">Sensation: %1$s selected</string>
+    <string name="mood_selected_format">Mood: %1$s selected</string>
+    <string name="treatment_selected_format">Treatment: %1$s selected</string>
+    <string name="environment_selected_format">Environment: %1$s selected</string>
+    <string name="diet_selected_format">Diet/Hydration: %1$s selected</string>
+    <string name="exercise_selected_format">Exercise/Sleep: %1$s selected</string>
+    <string name="body_area_selected_format">%1$s selected</string>
+    <string name="body_area_deselected_format">%1$s deselected</string>
+    <string name="log_saved">Daily log saved successfully</string>
 </resources>
