@@ -24,7 +24,7 @@
         android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:text="@string/daily_log"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -32,95 +32,149 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnClose" />
 
-    <!-- Main Content ScrollView -->
+    <!-- Date Navigation with Arrows -->
+    <LinearLayout
+        android:id="@+id/dateNavigationLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnPreviousWeek"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/previous_week"
+            android:src="@drawable/left_arrow_icon"
+            app:tint="@color/black" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:contentDescription="Input field for date"
+            android:ems="10"
+            android:importantForAccessibility="no"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/btnNextWeek"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/next_week"
+            android:src="@drawable/right_arrow_icon"
+            app:tint="@color/black" />
+    </LinearLayout>
+
+    <!-- Day Selector Group -->
+    <LinearLayout
+        android:id="@+id/weekNavigationLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/dateNavigationLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/daySelectorGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ToggleButton
+                android:id="@+id/btnMonday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/monday"
+                android:textOff="@string/m"
+                android:textOn="@string/m" />
+
+            <ToggleButton
+                android:id="@+id/btnTuesday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/tuesday"
+                android:textOff="@string/t"
+                android:textOn="@string/t" />
+
+            <ToggleButton
+                android:id="@+id/btnWednesday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/wednesday"
+                android:textOff="@string/w"
+                android:textOn="@string/w" />
+
+            <ToggleButton
+                android:id="@+id/btnThursday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/thursday"
+                android:textOff="@string/t"
+                android:textOn="@string/t" />
+
+            <ToggleButton
+                android:id="@+id/btnFriday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/friday"
+                android:textOff="@string/f"
+                android:textOn="@string/f" />
+
+            <ToggleButton
+                android:id="@+id/btnSaturday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/saturday"
+                android:textOff="@string/s"
+                android:textOn="@string/s" />
+
+            <ToggleButton
+                android:id="@+id/btnSunday"
+                style="@style/DayToggleStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/sunday"
+                android:textOff="@string/s"
+                android:textOn="@string/s" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Main ScrollView Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnClose">
+        app:layout_constraintTop_toBottomOf="@id/weekNavigationLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp">
-
-            <!-- Day Selector Group -->
-            <LinearLayout
-                android:id="@+id/daySelectorGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ToggleButton
-                    android:id="@+id/btnMonday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/monday"
-                    android:textOff="@string/m"
-                    android:textOn="@string/m" />
-
-                <ToggleButton
-                    android:id="@+id/btnTuesday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/tuesday"
-                    android:textOff="@string/t"
-                    android:textOn="@string/t" />
-
-                <ToggleButton
-                    android:id="@+id/btnWednesday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/wednesday"
-                    android:textOff="@string/w"
-                    android:textOn="@string/w" />
-
-                <ToggleButton
-                    android:id="@+id/btnThursday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/thursday"
-                    android:textOff="@string/t"
-                    android:textOn="@string/t" />
-
-                <ToggleButton
-                    android:id="@+id/btnFriday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/friday"
-                    android:textOff="@string/f"
-                    android:textOn="@string/f" />
-
-                <ToggleButton
-                    android:id="@+id/btnSaturday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/saturday"
-                    android:textOff="@string/s"
-                    android:textOn="@string/s" />
-
-                <ToggleButton
-                    android:id="@+id/btnSunday"
-                    style="@style/DayToggleStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/sunday"
-                    android:textOff="@string/s"
-                    android:textOn="@string/s" />
-            </LinearLayout>
 
             <!-- Physical Sensations Section -->
             <TextView
@@ -134,7 +188,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/daySelectorGroup" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <HorizontalScrollView
                 android:id="@+id/emojiScrollView"
