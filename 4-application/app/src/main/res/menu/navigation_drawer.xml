@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_resources"
+        android:icon="@drawable/resources_icon"
+        android:title="Educational Resources"/>
+    <item
+        android:id="@+id/navigation_settings"
+        android:title="Settings"/>
+
+</menu>
