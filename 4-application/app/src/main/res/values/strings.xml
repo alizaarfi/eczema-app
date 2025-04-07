@@ -168,4 +168,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="previous_week">prev week</string>
+    <string name="current_week">current week</string>
+    <string name="next_week">next week</string>
 </resources>

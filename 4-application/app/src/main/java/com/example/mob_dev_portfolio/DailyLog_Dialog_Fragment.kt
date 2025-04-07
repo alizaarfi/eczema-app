@@ -1,15 +1,23 @@
 package com.example.mob_dev_portfolio
 
+import android.icu.text.SimpleDateFormat
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mob_dev_portfolio.databinding.FragmentDailyLogDialogBinding
+import java.util.Date
+import java.util.Locale
+import android.graphics.Typeface
+import android.view.GestureDetector
+import android.view.MotionEvent
+import kotlin.math.abs
 
 class DailyLog_Dialog_Fragment : DialogFragment() {
 
@@ -36,8 +44,13 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val editTextDate : EditText = binding.editTextDate
+
+        // Set the current date in the EditText
+        editTextDate.setText(getFormattedDate())
 
         // Set up close button
         binding.btnClose.setOnClickListener {
@@ -46,6 +59,8 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
 
         // Set up the different input buttons
         setupDaySelectors()
+        // further date picker stuff
+        setupWeekNavigation()
         setupPhysicalSensationsRecyclerView()
         setupMoodRecyclerView()
         setupBodyAreas()
@@ -65,14 +80,113 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         observeViewModel()
     }
 
+    private fun getFormattedDate(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = sdf.format(Date())
+        // Change to format so its like 8 July
+        val currentDateWithoutYear = SimpleDateFormat("d MMMM", Locale.getDefault()).format(Date())
+
+        // Check if today's date
+        val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        return if (currentDate == todayDate) {
+            "Today: $currentDateWithoutYear"
+        } else {
+            currentDateWithoutYear
+        }
+    }
+
+    private fun setupWeekNavigation() {
+        // Add these buttons to your layout or create them programmatically
+        binding.btnPreviousWeek.setOnClickListener {
+            viewModel.goToPreviousWeek()
+        }
+
+        binding.btnNextWeek.setOnClickListener {
+            viewModel.goToNextWeek()
+        }
+
+        // Update week indicator text
+        viewModel.currentWeekOffset.observe(viewLifecycleOwner) { offset ->
+
+            // Only enable next week button if we're not in the current week
+            binding.btnNextWeek.isEnabled = offset < 0
+        }
+    }
+
     private fun setupDaySelectors() {
-        binding.btnMonday.setOnClickListener { viewModel.toggleDay(0) }
-        binding.btnTuesday.setOnClickListener { viewModel.toggleDay(1) }
-        binding.btnWednesday.setOnClickListener { viewModel.toggleDay(2) }
-        binding.btnThursday.setOnClickListener { viewModel.toggleDay(3) }
-        binding.btnFriday.setOnClickListener { viewModel.toggleDay(4) }
-        binding.btnSaturday.setOnClickListener { viewModel.toggleDay(5) }
-        binding.btnSunday.setOnClickListener { viewModel.toggleDay(6) }
+        // Get day buttons
+        val dayButtons = listOf(
+            binding.btnMonday,
+            binding.btnTuesday,
+            binding.btnWednesday,
+            binding.btnThursday,
+            binding.btnFriday,
+            binding.btnSaturday,
+            binding.btnSunday
+        )
+
+        // Set click listeners
+        dayButtons.forEachIndexed { index, button ->
+            button.setOnClickListener {
+                viewModel.selectDay(index)
+                updateDayButtonStyles(index)
+            }
+        }
+
+        // Observe the current selected day
+        viewModel.selectedDay.observe(viewLifecycleOwner) { day ->
+            updateDayButtonStyles(day)
+        }
+
+        // Observe today's day of week to highlight it
+        viewModel.todayDayOfWeek.observe(viewLifecycleOwner) { todayDayOfWeek ->
+            // Update visual indicator for today
+            dayButtons.forEachIndexed { index, button ->
+                if (index == todayDayOfWeek) {
+                    // Add a special indicator for today
+                    button.setTypeface(null, Typeface.BOLD)
+                    // Could also add an underline or other visual cue
+                } else {
+                    button.setTypeface(null, Typeface.NORMAL)
+                }
+            }
+        }
+
+        // Observe current week offset to adjust today highlight
+        viewModel.currentWeekOffset.observe(viewLifecycleOwner) { offset ->
+            // Only show "today" indicator in current week
+            val showTodayIndicator = offset == 0
+            val todayDayOfWeek = viewModel.todayDayOfWeek.value ?: -1
+
+            if (showTodayIndicator && todayDayOfWeek >= 0) {
+                dayButtons[todayDayOfWeek].setTypeface(null, Typeface.BOLD)
+            } else {
+                dayButtons.forEach { it.setTypeface(null, Typeface.NORMAL) }
+            }
+        }
+
+        // Observe the current date display
+        viewModel.currentDateDisplay.observe(viewLifecycleOwner) { dateText ->
+            binding.editTextDate.setText(dateText)
+        }
+    }
+
+    private fun updateDayButtonStyles(selectedDayIndex: Int) {
+        // Get day buttons
+        val dayButtons = listOf(
+            binding.btnMonday,
+            binding.btnTuesday,
+            binding.btnWednesday,
+            binding.btnThursday,
+            binding.btnFriday,
+            binding.btnSaturday,
+            binding.btnSunday
+        )
+
+        // Update the checked state for all buttons
+        dayButtons.forEachIndexed { index, button ->
+            button.isChecked = index == selectedDayIndex
+        }
     }
 
     private fun setupPhysicalSensationsRecyclerView() {
@@ -178,6 +292,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         binding.moodEmojiScrollView.removeAllViews()
         binding.moodEmojiScrollView.addView(recyclerView)
     }
+
 
     private fun setupTreatmentRecyclerView() {
         // Create list of treatment emoji buttons
@@ -463,16 +578,19 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
     }
 
     private fun observeViewModel() {
-        // Day selector observation
-        viewModel.selectedDays.observe(viewLifecycleOwner) { selectedDays ->
-            binding.btnMonday.isChecked = selectedDays.contains(0)
-            binding.btnTuesday.isChecked = selectedDays.contains(1)
-            binding.btnWednesday.isChecked = selectedDays.contains(2)
-            binding.btnThursday.isChecked = selectedDays.contains(3)
-            binding.btnFriday.isChecked = selectedDays.contains(4)
-            binding.btnSaturday.isChecked = selectedDays.contains(5)
-            binding.btnSunday.isChecked = selectedDays.contains(6)
+        // Selected day observation
+        viewModel.selectedDay.observe(viewLifecycleOwner) { selectedDay ->
+            updateDayButtonStyles(selectedDay)
         }
+
+        // We also need to observe other data for the current day
+        viewModel.selectedPhysicalSensations.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        viewModel.selectedMood.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        viewModel.selectedBodyAreas.observe(viewLifecycleOwner) { /* Already handled in setupBodyAreas */ }
+        viewModel.selectedTreatments.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        viewModel.selectedEnvironments.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        viewModel.selectedDietHydration.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        viewModel.selectedExerciseSleep.observe(viewLifecycleOwner) { /* Update UI if needed */ }
     }
 
     private fun saveLogEntry() {
