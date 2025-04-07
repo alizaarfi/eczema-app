@@ -150,4 +150,6 @@
     <string name="body_area_selected_format">%1$s selected</string>
     <string name="body_area_deselected_format">%1$s deselected</string>
     <string name="log_saved">Daily log saved successfully</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">close</string>
 </resources>

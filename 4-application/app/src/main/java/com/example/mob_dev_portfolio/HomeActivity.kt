@@ -12,10 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mob_dev_portfolio.databinding.ActivityHomeBinding
 import java.util.Locale
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var toggle: ActionBarDrawerToggle
 
 
     private lateinit var goalAdapter: GoalAdapter
@@ -33,11 +37,23 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        toggle = ActionBarDrawerToggle(
+            this,
+            binding.main, // your DrawerLayout ID
+            binding.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+
+        binding.main.addDrawerListener(toggle)
+        toggle.syncState()
 
         // Setup RecyclerView with your existing adapter
         goalAdapter = GoalAdapter(goalsList)
@@ -61,11 +77,31 @@ class HomeActivity : AppCompatActivity() {
         setupBottomNavigation()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_bar, menu)
+        return true
+    }
+
+
     // Your existing method for adding goals
     fun addGoal(goal: String) {
         goalsList.add(GoalAdapter.Goal(text = goal))
         goalAdapter.notifyItemInserted(goalsList.size - 1)
         binding.recyclerItems.smoothScrollToPosition(goalsList.size - 1)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+//            R.id.menu_settings -> {
+//                // do something
+//                true
+//            }
+//            R.id.menu_about -> {
+//                // do something else
+//                true
+//            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupBottomNavigation() {
@@ -94,4 +130,5 @@ class HomeActivity : AppCompatActivity() {
         // Set the Home item as selected
         binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
+
 }

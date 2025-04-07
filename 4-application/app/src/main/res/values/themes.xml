@@ -14,9 +14,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Mobdevportfolio.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!-- Use this style when you want a theme without ActionBar -->
+    <style name="Theme.Mobdevportfolio.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.Mobdevportfolio.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
