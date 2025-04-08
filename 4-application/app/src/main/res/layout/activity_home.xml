@@ -121,7 +121,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Daily Goals Progress"
+                        android:text="@string/daily_goals_progress"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_marginTop="12dp" />
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:progress="60"
+                        android:progress="0"
                         android:progressTint="@color/teal_700" />
 
                     <TextView
@@ -140,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="3/5 Completed"
+                        android:text="0/0 Completed"
                         android:textSize="14sp"
                         android:layout_marginTop="2dp" />
                 </LinearLayout>

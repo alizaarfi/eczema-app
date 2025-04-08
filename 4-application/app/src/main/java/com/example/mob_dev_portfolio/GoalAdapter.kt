@@ -2,20 +2,27 @@ package com.example.mob_dev_portfolio
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mob_dev_portfolio.databinding.ItemGoalBinding
+import com.example.mob_dev_portfolio.Goal
 
-class GoalAdapter(private val goals: MutableList<Goal>) : RecyclerView.Adapter<GoalAdapter.GoalViewHolder>() {
+class GoalAdapter(
+    private val onCheckedChange: (Goal) -> Unit
+) : ListAdapter<Goal, GoalAdapter.GoalViewHolder>(GoalItemDiffCallback()) {
 
-    data class Goal(val text: String, var isChecked: Boolean = false)
+    inner class GoalViewHolder(private val binding: ItemGoalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    inner class GoalViewHolder(private val binding: ItemGoalBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(goal: Goal) {
+        fun bind(position: Int) {
+            val goal = getItem(position)
             binding.tvGoalText.text = goal.text
             binding.cbGoal.isChecked = goal.isChecked
 
             binding.cbGoal.setOnCheckedChangeListener { _, isChecked ->
-                goal.isChecked = isChecked
+                val updatedGoal = goal.copy(isChecked = isChecked)
+                onCheckedChange(updatedGoal)
             }
         }
     }
@@ -26,8 +33,8 @@ class GoalAdapter(private val goals: MutableList<Goal>) : RecyclerView.Adapter<G
     }
 
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
-        holder.bind(goals[position])
+        holder.bind(position)
     }
 
-    override fun getItemCount(): Int = goals.size
 }
+

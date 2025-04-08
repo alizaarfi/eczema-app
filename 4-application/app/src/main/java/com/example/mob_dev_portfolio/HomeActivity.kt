@@ -2,31 +2,28 @@ package com.example.mob_dev_portfolio
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mob_dev_portfolio.databinding.ActivityHomeBinding
-import java.util.Locale
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
-import java.util.UUID
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
-
+    private val goalsViewModel: GoalsViewModel by viewModels()
     private lateinit var goalAdapter: GoalAdapter
-    private val goalsList = mutableListOf<GoalAdapter.Goal>() // Using your existing Goal class
 
     private lateinit var weatherManager: WeatherManager
-    private lateinit var preferenceManager: PreferenceManager
+//    private lateinit var preferenceManager: PreferenceManager
 
     // Default location coordinates (can be updated with the user's location)
     private val defaultLatitude = 51.5072  // London
@@ -39,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: NavigationView = binding.navView
+        val progressGoals: ProgressBar = binding.progressGoals
 
         setSupportActionBar(binding.toolbar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -70,19 +68,28 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Setup RecyclerView with your existing adapter
-        goalAdapter = GoalAdapter(goalsList)
-        binding.recyclerItems.layoutManager = LinearLayoutManager(this)
+        // Setup RecyclerView with GoaAdapter
+        goalAdapter = GoalAdapter { updatedGoal ->
+            goalsViewModel.updateGoalCompletion(updatedGoal)
+        }
         binding.recyclerItems.adapter = goalAdapter
+        binding.recyclerItems.layoutManager = LinearLayoutManager(this)
+
+        // Observes the livedata (e.g when a goal is checked) to update the UI
+        goalsViewModel.goals.observe(this) { goalList ->
+            goalAdapter.submitList(goalList)
+            updateGoalProgress(goalList)
+        }
 
         // Button click to add goal - using your existing method
         binding.btnAddGoal.setOnClickListener {
-            val goalText = binding.etGoalInput.text.toString().trim()
-            if (goalText.isNotEmpty()) {
-                addGoal(goalText)
+            val text = binding.etGoalInput.text.toString().trim()
+            if (text.isNotEmpty()) {
+                goalsViewModel.addGoal(text)
                 binding.etGoalInput.text.clear()
             }
         }
+
 
 
 //        // Initialize managers
@@ -99,12 +106,22 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    // Your existing method for adding goals
-    fun addGoal(goal: String) {
-        goalsList.add(GoalAdapter.Goal(text = goal))
-        goalAdapter.notifyItemInserted(goalsList.size - 1)
-        binding.recyclerItems.smoothScrollToPosition(goalsList.size - 1)
+//    fun addGoal(goal: String) {
+//        goalsList.add(GoalAdapter.Goal(text = goal))
+//        goalAdapter.notifyItemInserted(goalsList.size - 1)
+//        binding.recyclerItems.smoothScrollToPosition(goalsList.size - 1)
+//        updateGoalProgress()
+//    }
+
+    private fun updateGoalProgress(goals: List<Goal>) {
+        val total = goals.size
+        val completed = goals.count { it.isChecked }
+        val ratio = if (total > 0) (completed * 100) / total else 0
+
+        binding.progressGoals.progress = ratio
+        binding.tvGoalProgress.text = "$completed/$total Completed"
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
