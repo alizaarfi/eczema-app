@@ -171,4 +171,7 @@
     <string name="previous_week">prev week</string>
     <string name="current_week">current week</string>
     <string name="next_week">next week</string>
+    <string name="input_field_for_date">Input field for date</string>
+    <string name="select_date">Select date</string>
+
 </resources>
