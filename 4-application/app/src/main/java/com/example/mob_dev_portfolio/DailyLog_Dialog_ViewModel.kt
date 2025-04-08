@@ -1,23 +1,35 @@
 package com.example.mob_dev_portfolio
 
+import android.app.Application
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.mob_dev_portfolio.data.database.AppDatabase
+import com.example.mob_dev_portfolio.data.entity.DailyLog_Entry
+import com.example.mob_dev_portfolio.data.repository.DailyLog_Repo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
-class DailyLog_Dialog_ViewModel : ViewModel() {
+class DailyLog_Dialog_ViewModel(application: Application) : AndroidViewModel(application) {
+    // Repo for the room db
+    private val repo: DailyLog_Repo
 
-    // Selected day (0 = Monday, 6 = Sunday)
+    // All LiveData stuff
+    // Selected day where 0 = Monday and 6 = Sunday
     private val _selectedDay = MutableLiveData<Int>()
     val selectedDay: LiveData<Int> = _selectedDay
 
-    // Current week offset (0 = current week, -1 = last week, etc.)
+    // Current week offset where 0 = current week and -1 = last week
     private val _currentWeekOffset = MutableLiveData<Int>(0)
     val currentWeekOffset: LiveData<Int> = _currentWeekOffset
 
-    // Today's day of the week (0 = Monday, 6 = Sunday)
+    // Todays day
     private val _todayDayOfWeek = MutableLiveData<Int>()
     val todayDayOfWeek: LiveData<Int> = _todayDayOfWeek
 
@@ -53,8 +65,8 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
     private val _selectedExerciseSleep = MutableLiveData<Set<String>>(setOf())
     val selectedExerciseSleep: LiveData<Set<String>> = _selectedExerciseSleep
 
-    // Initialize with current day
     init {
+        // Initialise current day
         val calendar = Calendar.getInstance()
         // Convert to our day index (0 = Monday, 6 = Sunday)
         val dayOfWeek = when (calendar.get(Calendar.DAY_OF_WEEK)) {
@@ -64,6 +76,25 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
         _todayDayOfWeek.value = dayOfWeek
         _selectedDay.value = dayOfWeek
         updateCurrentDateDisplay()
+
+        // Initialise the repo
+        val dailyLogDao = AppDatabase.getDatabase(application).dailyLogDao()
+        repo = DailyLog_Repo(dailyLogDao)
+    }
+
+    // Format date
+    private fun getFormattedDate(): String {
+        val calendar = Calendar.getInstance()
+        val weekOffset = _currentWeekOffset.value ?: 0
+        val selectedDay = _selectedDay.value ?: 0
+        calendar.add(Calendar.WEEK_OF_YEAR, weekOffset)
+        val firstDayOfWeek = Calendar.MONDAY
+        calendar.set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+        calendar.add(Calendar.DAY_OF_WEEK, selectedDay)
+
+        // Format date as yyyy-MM-dd for room db storage
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return sdf.format(calendar.time)
     }
 
     // Select/deselect a physical sensation
@@ -150,35 +181,32 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
     fun selectDay(dayIndex: Int) {
         _selectedDay.value = dayIndex
         updateCurrentDateDisplay()
-        // Here you would also load data for the selected day
-        loadDataForSelectedDay()
+        loadLogForSelectedDate()
     }
 
     // Move to previous week
     fun goToPreviousWeek() {
         _currentWeekOffset.value = (_currentWeekOffset.value ?: 0) - 1
         updateCurrentDateDisplay()
-        loadDataForSelectedDay()
+        loadLogForSelectedDate()
     }
 
     // Move to next week
     fun goToNextWeek() {
         val newOffset = (_currentWeekOffset.value ?: 0) + 1
-        // Don't allow going beyond current week
+        // Can't go past the current week
         if (newOffset <= 0) {
             _currentWeekOffset.value = newOffset
             updateCurrentDateDisplay()
-            loadDataForSelectedDay()
+            loadLogForSelectedDate()
         }
     }
-
     // Update the display text for current date
     private fun updateCurrentDateDisplay() {
         val calendar = Calendar.getInstance()
         val weekOffset = _currentWeekOffset.value ?: 0
         val selectedDay = _selectedDay.value ?: 0
 
-        // Adjust calendar to selected week
         calendar.add(Calendar.WEEK_OF_YEAR, weekOffset)
 
         // Set day of week
@@ -207,34 +235,59 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
         }
     }
 
-    // Load data for the currently selected day
-    private fun loadDataForSelectedDay() {
-        // Here you would get the date for the selected day and week offset
-        // and load any existing data from your database
-        val calendar = Calendar.getInstance()
-        val weekOffset = _currentWeekOffset.value ?: 0
-        val selectedDay = _selectedDay.value ?: 0
+     fun loadLogForSelectedDate(date: String? = null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // Get the date string for database lookup
+            val dateString = getFormattedDate()
 
-        // Adjust calendar to selected date
-        calendar.add(Calendar.WEEK_OF_YEAR, weekOffset)
-        val firstDayOfWeek = when (calendar.firstDayOfWeek) {
-            Calendar.SUNDAY -> Calendar.MONDAY
-            else -> calendar.firstDayOfWeek
+            // Load log entry from database
+            val logEntry = repo.getLogByDate(dateString)
+
+            // Update LiveData values on main thread
+            withContext(Dispatchers.Main) {
+                if (logEntry != null) {
+                    // Update each selection
+                    _selectedPhysicalSensations.value =
+                        if (logEntry.physicalSensations.isEmpty()) setOf()
+                        else logEntry.physicalSensations.split(",").toSet()
+
+                    _selectedMood.value = logEntry.mood
+
+                    _selectedBodyAreas.value =
+                        repo.convertStringToBodyAreas(logEntry.bodyAreas, logEntry.bodyAreaSeverity)
+
+                    _selectedTreatments.value =
+                        if (logEntry.treatments.isEmpty()) setOf()
+                        else logEntry.treatments.split(",").toSet()
+
+                    _selectedEnvironments.value =
+                        if (logEntry.environments.isEmpty()) setOf()
+                        else logEntry.environments.split(",").toSet()
+
+                    _selectedDietHydration.value =
+                        if (logEntry.dietHydration.isEmpty()) setOf()
+                        else logEntry.dietHydration.split(",").toSet()
+
+                    _selectedExerciseSleep.value =
+                        if (logEntry.exerciseSleep.isEmpty()) setOf()
+                        else logEntry.exerciseSleep.split(",").toSet()
+
+                } else {
+                    // May be why when updating a past log it resets
+                    _selectedPhysicalSensations.value = setOf()
+                    _selectedMood.value = ""
+                    _selectedBodyAreas.value = mapOf()
+                    _selectedTreatments.value = setOf()
+                    _selectedEnvironments.value = setOf()
+                    _selectedDietHydration.value = setOf()
+                    _selectedExerciseSleep.value = setOf()
+                }
+            }
         }
-        calendar.set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
-        calendar.add(Calendar.DAY_OF_WEEK, selectedDay)
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val dateString = dateFormat.format(calendar.time)
-
-        // TODO: Load data for this date from your repository
-        // Example: repository.getLogEntryForDate(dateString)?.let { logEntry ->
-        //    // Update the LiveData with loaded values
-        // }
     }
 
-    // Save the complete log entry
-    fun saveLogEntry(
+    // Called by fragment and calls the repo for roomdb
+    fun saveLog(
         physicalSensations: String,
         mood: String,
         treatments: String,
@@ -242,20 +295,27 @@ class DailyLog_Dialog_ViewModel : ViewModel() {
         dietHydration: String,
         exerciseSleep: String
     ) {
-        // Here you would typically save to a database or repository
-        // This is a placeholder for actual implementation
-        // Example:
-        // val logEntry = DailyLogEntry(
-        //     date = getCurrentDate(),
-        //     days = _selectedDays.value?.toList() ?: listOf(),
-        //     sensations = physicalSensations,
-        //     mood = mood,
-        //     bodyAreas = _selectedBodyAreas.value ?: mapOf(),
-        //     treatments = treatments,
-        //     environments = environments,
-        //     dietHydration = dietHydration,
-        //     exerciseSleep = exerciseSleep
-        // )
-        // repository.saveDailyLogEntry(logEntry)
+        viewModelScope.launch(Dispatchers.IO) {
+            // Calls repo func to convert selected body areas to strings
+            val (bodyAreasStr, bodyAreaSeverityStr) = repo.convertBodyAreasToString(selectedBodyAreas.value ?: emptyMap())
+
+            // Create log entry
+            val logEntry = DailyLog_Entry(
+                timestamp = System.currentTimeMillis().toString(),
+                date = currentDateDisplay.value ?: getFormattedDate(),
+                physicalSensations = physicalSensations,
+                mood = mood,
+                bodyAreas = bodyAreasStr,
+                bodyAreaSeverity = bodyAreaSeverityStr,
+                treatments = treatments,
+                environments = environments,
+                dietHydration = dietHydration,
+                exerciseSleep = exerciseSleep
+            )
+
+            // Saves to the roomdb!
+            repo.insertOrUpdateLog(logEntry)
+        }
     }
+
 }

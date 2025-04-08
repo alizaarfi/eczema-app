@@ -15,21 +15,25 @@ import com.example.mob_dev_portfolio.databinding.FragmentDailyLogDialogBinding
 import java.util.Date
 import java.util.Locale
 import android.graphics.Typeface
-import android.view.GestureDetector
-import android.view.MotionEvent
-import kotlin.math.abs
 
+// Daily log uses a fragment instead of an activity
+// DialogFragment allows for auto restoring if there is a config change
 class DailyLog_Dialog_Fragment : DialogFragment() {
 
+    // Binding and private attributes
+    private val viewModel: DailyLog_Dialog_ViewModel by viewModels()
+    // Underscore since it is nullable in fragments
+    private var _binding: FragmentDailyLogDialogBinding? = null
+    private val binding get() = _binding!!
+
+    // Kotlin ver of 'static' basically to pass arguments
+    // Fragments require no constructor so companion object avoids it
     companion object {
         const val TAG = "DailyLogDialogFragment"
         fun newInstance() = DailyLog_Dialog_Fragment()
     }
 
-    private val viewModel: DailyLog_Dialog_ViewModel by viewModels()
-    private var _binding: FragmentDailyLogDialogBinding? = null
-    private val binding get() = _binding!!
-
+    // Initalises the ViewModel before inflating UI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullScreenDialogStyle)
@@ -44,22 +48,20 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val editTextDate : EditText = binding.editTextDate
 
-        // Set the current date in the EditText
+        // For updating EditText with current/selected date
+        val editTextDate : EditText = binding.editTextDate
         editTextDate.setText(getFormattedDate())
 
-        // Set up close button
+        // Listener for close button
         binding.btnClose.setOnClickListener {
             dismiss()
         }
 
-        // Set up the different input buttons
+        // Set up the different input buttons and week navigation
         setupDaySelectors()
-        // further date picker stuff
         setupWeekNavigation()
         setupPhysicalSensationsRecyclerView()
         setupMoodRecyclerView()
@@ -69,17 +71,18 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         setupDietHydrationRecyclerView()
         setupExerciseSleepRecyclerView()
 
-        // Set up save button
+        // Listener for save button
         binding.saveButton.setOnClickListener {
-            saveLogEntry()
+            saveLog()
             Toast.makeText(context, getString(R.string.log_saved), Toast.LENGTH_SHORT).show()
             dismiss()
         }
 
-        // Observe ViewModel data
+        // Observe ViewModels data
         observeViewModel()
     }
 
+    // Formats date
     private fun getFormattedDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val currentDate = sdf.format(Date())
@@ -95,24 +98,22 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         }
     }
 
+    // Sets up navigating between weeks
     private fun setupWeekNavigation() {
-        // Add these buttons to your layout or create them programmatically
         binding.btnPreviousWeek.setOnClickListener {
             viewModel.goToPreviousWeek()
         }
-
         binding.btnNextWeek.setOnClickListener {
             viewModel.goToNextWeek()
         }
-
         // Update week indicator text
         viewModel.currentWeekOffset.observe(viewLifecycleOwner) { offset ->
-
             // Only enable next week button if we're not in the current week
             binding.btnNextWeek.isEnabled = offset < 0
         }
     }
 
+    // Sets up functionality for selecting different days
     private fun setupDaySelectors() {
         // Get day buttons
         val dayButtons = listOf(
@@ -183,14 +184,19 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             binding.btnSunday
         )
 
-        // Update the checked state for all buttons
+        // Update isChecked state for all buttons
         dayButtons.forEachIndexed { index, button ->
             button.isChecked = index == selectedDayIndex
         }
     }
 
+    private fun loadExistingDataForCurrentDate() {
+        val currentDate = viewModel.currentDateDisplay.value ?: getFormattedDate()
+        viewModel.loadLogForSelectedDate(currentDate)
+    }
+
     private fun setupPhysicalSensationsRecyclerView() {
-        // Create list of sensation emoji buttons
+        // Creates list of emoji buttons
         val sensationButtons = listOf(
             EmojiButton(
                 "itchy",
@@ -219,7 +225,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             )
         )
 
-        // Create RecyclerView for physical sensations
+        // Creates RecyclerView for physical sensations
         val recyclerView = RecyclerView(requireContext()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -236,13 +242,13 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.emojiScrollView.removeAllViews()
         binding.emojiScrollView.addView(recyclerView)
     }
 
     private fun setupMoodRecyclerView() {
-        // Create list of mood emoji buttons
+        // Creates list of mood emoji buttons
         val moodButtons = listOf(
             EmojiButton(
                 "very_sad",
@@ -288,7 +294,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.moodEmojiScrollView.removeAllViews()
         binding.moodEmojiScrollView.addView(recyclerView)
     }
@@ -324,7 +330,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             )
         )
 
-        // Create RecyclerView for treatments
+        // Creates RecyclerView for treatments
         val recyclerView = RecyclerView(requireContext()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -341,7 +347,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.treatmentEmojiScrollView.removeAllViews()
         binding.treatmentEmojiScrollView.addView(recyclerView)
     }
@@ -403,7 +409,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.environmentScrollView.removeAllViews()
         binding.environmentScrollView.addView(recyclerView)
     }
@@ -433,7 +439,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             )
         )
 
-        // Create RecyclerView for diet/hydration
+        // Creates RecyclerView for diet/hydration
         val recyclerView = RecyclerView(requireContext()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -450,13 +456,13 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.dietHydrationScrollView.removeAllViews()
         binding.dietHydrationScrollView.addView(recyclerView)
     }
 
     private fun setupExerciseSleepRecyclerView() {
-        // Create list of exercise/sleep emoji buttons
+        // Creates list of exercise/sleep emoji buttons
         val exerciseButtons = listOf(
             EmojiButton(
                 "exercise",
@@ -470,7 +476,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             )
         )
 
-        // Create RecyclerView for exercise/sleep
+        // Creates RecyclerView for exercise/sleep
         val recyclerView = RecyclerView(requireContext()).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -487,11 +493,13 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             }
         }
 
-        // Add RecyclerView to the container
+        // Adds RecyclerView to the container
         binding.exerciseSleepScrollView.removeAllViews()
         binding.exerciseSleepScrollView.addView(recyclerView)
     }
 
+    // Using chip widgets ina chip group
+    // Reference at bottom of file
     private fun setupBodyAreas() {
         // Get all body area chips
         val bodyAreaChips = listOf(
@@ -516,29 +524,30 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         // Current selected body area for intensity slider
         var currentSelectedArea: String? = null
 
-        // Set up each body area chip's click listener
+        // Set up each chip a click listener
         bodyAreaChips.forEachIndexed { index, chip ->
             chip.setOnClickListener {
                 val bodyArea = bodyAreas[index]
                 val isSelected = chip.isChecked
 
-                // Show or hide intensity slider when a body area is selected
+                // Block to check to show the slider when selected
                 if (isSelected) {
-                    // Update currently selected area for intensity adjustment
+                    // Updating currently selected area for intensity adjustment
                     currentSelectedArea = bodyArea
 
-                    // Show intensity slider and update label
+                    // Show slider and update label
                     binding.bodyAreaIntensityLayout.visibility = View.VISIBLE
                     binding.bodyAreaIntensityLabel.text = "${getString(R.string.intensity_label)}: $bodyArea"
 
-                    // Set slider to default or existing value
+                    // Set slider to default/existing value
                     val currentIntensity = viewModel.selectedBodyAreas.value?.get(bodyArea) ?: 1
                     binding.bodyAreaIntensitySlider.value = currentIntensity.toFloat()
 
-                    // Notify the ViewModel
+                    // Notify ViewModel
                     viewModel.selectBodyArea(bodyArea, true, currentIntensity)
                 } else {
-                    // If the current selected area is being unselected, hide intensity slider
+                    // Could refactor this to be an elseif and extra else if have time
+                    // Hide intensity slider
                     if (bodyArea == currentSelectedArea) {
                         binding.bodyAreaIntensityLayout.visibility = View.GONE
                         currentSelectedArea = null
@@ -582,19 +591,19 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         viewModel.selectedDay.observe(viewLifecycleOwner) { selectedDay ->
             updateDayButtonStyles(selectedDay)
         }
-
-        // We also need to observe other data for the current day
-        viewModel.selectedPhysicalSensations.observe(viewLifecycleOwner) { /* Update UI if needed */ }
-        viewModel.selectedMood.observe(viewLifecycleOwner) { /* Update UI if needed */ }
-        viewModel.selectedBodyAreas.observe(viewLifecycleOwner) { /* Already handled in setupBodyAreas */ }
-        viewModel.selectedTreatments.observe(viewLifecycleOwner) { /* Update UI if needed */ }
-        viewModel.selectedEnvironments.observe(viewLifecycleOwner) { /* Update UI if needed */ }
-        viewModel.selectedDietHydration.observe(viewLifecycleOwner) { /* Update UI if needed */ }
-        viewModel.selectedExerciseSleep.observe(viewLifecycleOwner) { /* Update UI if needed */ }
+        // Observing the other data
+        viewModel.selectedPhysicalSensations.observe(viewLifecycleOwner) {}
+        viewModel.selectedMood.observe(viewLifecycleOwner) {}
+        viewModel.selectedBodyAreas.observe(viewLifecycleOwner) {}
+        viewModel.selectedTreatments.observe(viewLifecycleOwner) {}
+        viewModel.selectedEnvironments.observe(viewLifecycleOwner) {}
+        viewModel.selectedDietHydration.observe(viewLifecycleOwner) {}
+        viewModel.selectedExerciseSleep.observe(viewLifecycleOwner) {}
     }
 
-    private fun saveLogEntry() {
-        // Collect data from ViewModel
+    // Saving the log to RoomDB -appDB
+    private fun saveLog() {
+        // Collecting data from ViewModel
         val physicalSensations = viewModel.selectedPhysicalSensations.value?.joinToString(", ") ?: ""
         val mood = viewModel.selectedMood.value ?: ""
         val treatments = viewModel.selectedTreatments.value?.joinToString(", ") ?: ""
@@ -602,8 +611,8 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         val dietHydration = viewModel.selectedDietHydration.value?.joinToString(", ") ?: ""
         val exerciseSleep = viewModel.selectedExerciseSleep.value?.joinToString(", ") ?: ""
 
-        // Create a complete log entry
-        viewModel.saveLogEntry(
+        // Calls viewModel to saveLog
+        viewModel.saveLog(
             physicalSensations,
             mood,
             treatments,
@@ -625,3 +634,5 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
         _binding = null
     }
 }
+// DialogFragments: https://developer.android.com/guide/fragments/dialogs
+//ChipGroups: https://developer.android.com/reference/com/google/android/material/chip/Chip?_gl=1*1fdloxc*_up*MQ..*_ga*MjE3MzIyOTg0LjE3NDQxMDE2NTQ.*_ga_6HH9YJMN9M*MTc0NDEwMTY1NC4xLjAuMTc0NDEwMTY1NC4wLjAuNjkyNjI0Njk.
