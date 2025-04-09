@@ -9,4 +9,35 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <!-- Simulated location entries (display names) -->
+    <!-- Simulated location entries (display names) -->
+    <string-array name="simulated_location_entries">
+        <item>Cardiff, UK (Temperate Maritime)</item>
+        <item>Dubai, UAE (Hot Desert)</item>
+        <item>Singapore (Tropical Rainforest)</item>
+        <item>Reykjavik, Iceland (Subarctic)</item>
+    </string-array>
+
+    <!-- Simulated location values (stored values) -->
+    <string-array name="simulated_location_values">
+        <item>cardiff</item>
+        <item>dubai</item>
+        <item>singapore</item>
+        <item>reykjavik</item>
+    </string-array>
+
+    <string-array name="simulated_condition_entries">
+    <item>Hot &amp; Dry</item>
+    <item>Cold &amp; Wet</item>
+    <item>Pollen High</item>
+    <item>Windy</item>
+    </string-array>
+
+    <string-array name="simulated_condition_values">
+    <item>hot_dry</item>
+    <item>cold_wet</item>
+    <item>pollen_high</item>
+    <item>windy</item>
+    </string-array>
 </resources>

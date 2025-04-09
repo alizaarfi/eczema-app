@@ -62,21 +62,24 @@ class WeatherManager(private val context: Context) {
 
 
     // This returns the appropriate weather icon(e.g snow) based on the weather condition code
+    // Using code as standardised by OpenWeatherAPI instead of easier with strings
     fun getWeatherIconResource(weatherId: Int): Int {
-        return when {
-//            weatherId in 200..232 -> R.drawable.thunderstorm_icon
-//            weatherId in 300..321 -> R.drawable.drizzle_icon
-//            weatherId in 500..531 -> R.drawable.rainy_icon
-            weatherId in 600..622 -> R.drawable.snow_icon
-//            weatherId in 701..781 -> R.drawable.foggy_icon
-            weatherId == 800 -> R.drawable.sunny_icon
-            weatherId in 801..804 -> R.drawable.cloudy_icon
+        return when (weatherId) {
+            in 200..232 -> R.drawable.thunderstorm_icon
+            in 300..321 -> R.drawable.drizzle_icon
+            in 500..531 -> R.drawable.rainy_icon
+            in 600..622 -> R.drawable.snow_icon
+            in 701..781 -> R.drawable.foggy_icon
+            800 -> R.drawable.sunny_icon
+            in 801..804 -> R.drawable.cloudy_icon
             else -> R.drawable.sunny_icon
         }
     }
 
+
+
     // Analysis for potential eczema triggers
-    fun analyzeEczemaRisk(weatherData: WeatherResponse): EczemaRiskFactor {
+    fun analyseEczemaRisk(weatherData: WeatherResponse): EczemaRiskFactor {
         // Low humidity can be a trigger (below 45%)
         val isLowHumidity = weatherData.main.humidity < 45
 

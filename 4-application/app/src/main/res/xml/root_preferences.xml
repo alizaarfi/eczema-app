@@ -1,35 +1,36 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <!--Here's how to be able to simulate the diff env to show full func-->
+    <PreferenceCategory app:title="Environment">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:key="env"
+            app:title="Enable Environment" />
 
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+            android:key="simulated_location"
+            android:title="Location"
+            android:summary="Choose your location for environmental conditions"
+            android:defaultValue="cardiff"
+            android:entries="@array/simulated_location_entries"
+            android:entryValues="@array/simulated_location_values"/>
+
+        <ListPreference
+            android:key="simulated_condition"
+            android:title="Weather Condition"
+            android:summary="Select your weather condition"
+            android:defaultValue="hot_dry"
+            android:entries="@array/simulated_condition_entries"
+            android:entryValues="@array/simulated_condition_values"/>
+
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+    <PreferenceCategory app:title="Notifications">
 
     </PreferenceCategory>
 
 </PreferenceScreen>
+<!--Preference object types: https://developer.android.com/develop/ui/views/components/settings?_gl=1*r93dhf*_up*MQ..*_ga*NTY1OTQ0Njc2LjE3NDQyMDQ3MDE.*_ga_6HH9YJMN9M*MTc0NDIwNDcwMC4xLjAuMTc0NDIwNDcwMC4wLjAuNzYyODQ2MzM.-->

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+
 class GoalsViewModel : ViewModel() {
     private val _goals = MutableLiveData<List<Goal>>(emptyList())
     val goals: LiveData<List<Goal>> get() = _goals
