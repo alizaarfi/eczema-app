@@ -1,6 +1,9 @@
 package com.example.mob_dev_portfolio
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +16,8 @@ import android.view.MenuItem
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
 
@@ -34,6 +39,14 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Requests permission to user if not granted yet
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
+        }
 
         val navView: NavigationView = binding.navView
         val progressGoals: ProgressBar = binding.progressGoals
@@ -148,11 +161,11 @@ class HomeActivity : AppCompatActivity() {
                     )
                     true
                 }
-                R.id.navigation_diary -> {
-                     val intent = Intent(this, DiaryActivity::class.java)
-                     startActivity(intent)
-                    true
-                }
+//                R.id.navigation_diary -> {
+//                     val intent = Intent(this, DiaryActivity::class.java)
+//                     startActivity(intent)
+//                    true
+//                }
                 else -> false
             }
         }
