@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var notificationUtils: NotificationUtils
     private val goalsViewModel: GoalsViewModel by viewModels()
     private lateinit var goalAdapter: GoalAdapter
 
@@ -40,6 +41,9 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialise before use
+        notificationUtils = NotificationUtils()
+
         // Requests permission to user if not granted yet
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -47,6 +51,7 @@ class HomeActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
             }
         }
+        NotificationHelper.createNotificationChannels(this)
 
         val navView: NavigationView = binding.navView
         val progressGoals: ProgressBar = binding.progressGoals
@@ -98,6 +103,14 @@ class HomeActivity : AppCompatActivity() {
         binding.btnAddGoal.setOnClickListener {
             val text = binding.etGoalInput.text.toString().trim()
             if (text.isNotEmpty()) {
+                notificationUtils.showNotification(
+                    this,
+                    "medication_reminders",
+                    "Medication Goal Reminder",
+                    "You added a goal: $text",
+                    101
+                )
+
                 goalsViewModel.addGoal(text)
                 binding.etGoalInput.text.clear()
             }
