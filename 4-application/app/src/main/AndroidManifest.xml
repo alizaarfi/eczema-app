@@ -16,7 +16,12 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".DiaryActivity"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
             android:exported="false" />
+        <activity
+            android:name=".DiaryEntryActivity"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
+            android:exported="false"/>
         <activity
             android:name=".HomeActivity"
             android:exported="false"

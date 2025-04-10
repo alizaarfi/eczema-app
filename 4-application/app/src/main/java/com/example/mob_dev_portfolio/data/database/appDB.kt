@@ -6,10 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.mob_dev_portfolio.data.entity.DailyLog_Entry
 import com.example.mob_dev_portfolio.data.dao.DailyLog_Dao
-
-@Database(entities = [DailyLog_Entry::class], version = 1)
+import com.example.mob_dev_portfolio.data.dao.DiaryDao
+import com.example.mob_dev_portfolio.data.entity.DiaryEntry
+@Database(entities = [DailyLog_Entry::class, DiaryEntry::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dailyLogDao(): DailyLog_Dao
+    abstract fun diaryDao(): DiaryDao  // Make sure this is added
 
     companion object {
         @Volatile
@@ -21,7 +23,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "eczema_app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()  // Add this line to handle migration
+                    .build()
                 INSTANCE = instance
                 instance
             }

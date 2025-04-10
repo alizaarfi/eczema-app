@@ -4,7 +4,8 @@ object ApiConstants {
     // Base URL for OpenWeatherMap API
     const val WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/"
 
-    // Your API key - in a real app, store this in gradle.properties or use BuildConfig
+    // My API key
+    // For deployment should store in gradle properties file
     const val WEATHER_API_KEY = "7ed851f01b84744ab9697891ca9c964b"
 
     // Units

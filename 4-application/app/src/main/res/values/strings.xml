@@ -174,5 +174,6 @@
     <string name="input_field_for_date">Input field for date</string>
     <string name="select_date">Select date</string>
     <string name="daily_goals_progress">Daily Goals Progress</string>
+    <string name="food_product_name">Food/Product Name</string>
 
 </resources>

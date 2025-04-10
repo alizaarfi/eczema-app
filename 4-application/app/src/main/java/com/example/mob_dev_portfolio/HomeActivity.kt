@@ -115,13 +115,12 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerItems.adapter = goalAdapter
         binding.recyclerItems.layoutManager = LinearLayoutManager(this)
 
-        // Observes the livedata (e.g when a goal is checked) to update the UI
+        // Observes the livedata for updating UI
         goalsViewModel.goals.observe(this) { goalList ->
             goalAdapter.submitList(goalList)
             updateGoalProgress(goalList)
         }
 
-        // Button click to add goal - using your existing method
         binding.btnAddGoal.setOnClickListener {
             val text = binding.etGoalInput.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -234,11 +233,11 @@ class HomeActivity : AppCompatActivity() {
                     )
                     true
                 }
-//                R.id.navigation_diary -> {
-//                     val intent = Intent(this, DiaryActivity::class.java)
-//                     startActivity(intent)
-//                    true
-//                }
+                R.id.navigation_diary -> {
+                     val intent = Intent(this, DiaryActivity::class.java)
+                     startActivity(intent)
+                    true
+                }
                 else -> false
             }
         }
