@@ -78,13 +78,11 @@ class HomeActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val progressGoals: ProgressBar = binding.progressGoals
 
+        // Setup toolbar with proper theme
         setSupportActionBar(binding.toolbar)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        supportActionBar?.title = "Home"
 
+        // Setup drawer toggle with proper theming
         toggle = ActionBarDrawerToggle(
             this,
             binding.main,
@@ -96,22 +94,66 @@ class HomeActivity : AppCompatActivity() {
         binding.main.addDrawerListener(toggle)
         toggle.syncState()
 
+//        setSupportActionBar(binding.toolbar)
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
+
+//        toggle = ActionBarDrawerToggle(
+//            this,
+//            binding.main,
+//            binding.toolbar,
+//            R.string.navigation_drawer_open,
+//            R.string.navigation_drawer_close
+//        )
+
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_settings -> {
-                    // Handle Settings item click
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
+                    binding.main.closeDrawers() // Close drawer after selection
                     true
                 }
                 R.id.navigation_resources -> {
                     val intent = Intent(this, ResourcesActivity::class.java)
                     startActivity(intent)
+                    binding.main.closeDrawers() // Close drawer after selection
+                    true
+                }
+                R.id.navigation_SOS -> {
+                    val intent = Intent(this, FirstAidActivity::class.java)
+                    startActivity(intent)
+                    binding.main.closeDrawers() // Close drawer after selection
                     true
                 }
                 else -> false
             }
         }
+
+//        navView.setNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.navigation_settings -> {
+//                    // Handle Settings item click
+//                    val intent = Intent(this, SettingsActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                R.id.navigation_resources -> {
+//                    val intent = Intent(this, ResourcesActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                R.id.navigation_SOS -> {
+//                    val intent = Intent(this, FirstAidActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         // Setup RecyclerView with GoalAdapter
         goalAdapter = GoalAdapter { updatedGoal ->
@@ -263,6 +305,10 @@ class HomeActivity : AppCompatActivity() {
         if (!lat.isNullOrBlank() && !lon.isNullOrBlank()) {
             fetchAndDisplayWeather()
         }
+    }
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
     }
 
 

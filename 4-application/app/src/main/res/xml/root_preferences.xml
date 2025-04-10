@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--Here's how to be able to simulate the diff env to show full func-->
+    <!--Sandy/Examiner Here's how to be able to simulate the diff env to show full func-->
     <PreferenceCategory app:title="Environment">
 
 
@@ -12,25 +12,23 @@
         <ListPreference
             android:key="simulated_location"
             android:title="Location"
-            android:summary="Choose your location for environmental conditions"
+            android:summary="Choose your location for environmental conditions. Different locations have different condtions which can affect your eczema!"
             android:defaultValue="cardiff"
             android:entries="@array/simulated_location_entries"
             android:entryValues="@array/simulated_location_values"/>
 
-        <ListPreference
-            android:key="simulated_condition"
-            android:title="Weather Condition"
-            android:summary="Select your weather condition"
-            android:defaultValue="hot_dry"
-            android:entries="@array/simulated_condition_entries"
-            android:entryValues="@array/simulated_condition_values"/>
+<!--Need to simulate a different way - if have more time-->
+<!--        <ListPreference-->
+<!--            android:key="simulated_condition"-->
+<!--            android:title="Weather Condition"-->
+<!--            android:summary="Select your weather condition"-->
+<!--            android:defaultValue="hot_dry"-->
+<!--            android:entries="@array/simulated_condition_entries"-->
+<!--            android:entryValues="@array/simulated_condition_values"/>-->
 
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Notifications">
-
-    </PreferenceCategory>
 
 </PreferenceScreen>
 <!--Preference object types: https://developer.android.com/develop/ui/views/components/settings?_gl=1*r93dhf*_up*MQ..*_ga*NTY1OTQ0Njc2LjE3NDQyMDQ3MDE.*_ga_6HH9YJMN9M*MTc0NDIwNDcwMC4xLjAuMTc0NDIwNDcwMC4wLjAuNzYyODQ2MzM.-->

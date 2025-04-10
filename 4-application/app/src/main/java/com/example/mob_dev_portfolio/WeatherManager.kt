@@ -128,25 +128,25 @@ class WeatherManager(private val context: Context) {
 
         // Low humidity tips
         if (weatherData.main.humidity < 45) {
-            tips.add("Low humidity detected. Consider using a humidifier.")
+            tips.add("Low humidity detected. Consider using a humidifier. \nApply moisturiser more frequently today!")
             tips.add("Apply moisturiser more frequently today.")
         }
 
         // Hot weather tips
         if (weatherData.main.temp > 25.0) {
-            tips.add("Hot weather detected. Stay cool and avoid sweating which can trigger flares.")
+            tips.add("Hot weather detected. Stay cool and avoid sweating which can trigger flares.\nPollen is also high - if you have hayfever remember to take antihistamines. \n Wear loose, cotton clothing! ")
             tips.add("Wear loose, cotton clothing.")
         }
 
         // Cold weather tips
         if (weatherData.main.temp < 5.0) {
-            tips.add("Cold weather detected. Protect your skin from cold with layers.")
+            tips.add("Cold weather detected. \nProtect your skin from cold with layers. \nUse thicker moisturisers in cold weather!")
             tips.add("Use thicker moisturisers in cold weather.")
         }
 
         // Windy conditions
         if (weatherData.wind?.speed ?: 0.0 > 8.0) {
-            tips.add("Windy conditions detected. Windy conditions may dry skin. Protect exposed areas.")
+            tips.add("Windy conditions detected. Windy conditions may dry skin. \nProtect exposed areas!")
         }
 
         // Sunny day

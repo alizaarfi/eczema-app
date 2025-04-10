@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
+
     android:fitsSystemWindows="true"
     tools:context=".HomeActivity">
 
@@ -17,10 +17,13 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:title="Home" />
+            android:elevation="4dp"
+            android:theme="@style/Theme.Mobdevportfolio.AppBarOverlay"
+            app:popupTheme="@style/Theme.Mobdevportfolio.PopupOverlay"
+            app:title="skinsync"
+            app:titleTextColor="@color/white" />
 
 
         <LinearLayout
@@ -58,7 +61,7 @@
                         android:id="@+id/tvLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cardiff, UK"
+                        android:text="cardiff"
                         android:textSize="16sp"
                         android:textStyle="italic"
                         android:layout_marginTop="4dp" />
@@ -69,8 +72,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Current Streak: 5 Days\nLast Flare-up: 2 days ago"
                         android:textSize="16sp"/>
+<!--                        android:text="Current Streak: 5 Days\nLast Flare-up: 2 days ago"-->
+<!--                        -->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -202,10 +206,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💡 Make treating your eczema easier with goals"
+                    android:text="💡 Keep track of your treatment"
                     android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:textColor="#888888" />
+                    android:layout_marginStart="16dp" />
             </LinearLayout>
 
             <!-- Scrollable goals section -->

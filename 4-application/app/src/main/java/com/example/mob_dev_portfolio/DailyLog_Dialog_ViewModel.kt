@@ -26,6 +26,7 @@ class DailyLog_Dialog_ViewModel(application: Application) : AndroidViewModel(app
     val selectedDay: LiveData<Int> = _selectedDay
 
     // Current week offset where 0 = current week and -1 = last week
+    // Can use if want to change week displays
     private val _currentWeekOffset = MutableLiveData<Int>(0)
     val currentWeekOffset: LiveData<Int> = _currentWeekOffset
 

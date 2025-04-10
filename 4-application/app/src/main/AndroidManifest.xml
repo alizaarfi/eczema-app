@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobdevportfolio">
         <activity
+            android:name=".FirstAidActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResourcesActivity"
             android:exported="false" />
         <activity

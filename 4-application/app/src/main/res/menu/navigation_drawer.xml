@@ -10,7 +10,7 @@
         android:title="Educational Resources"/>
     <item
         android:id="@+id/navigation_SOS"
-        android:icon="@drawable/"
+        android:icon="@drawable/baseline_local_hospital_24"
         android:title="SOS First Aid Kit"/>
     <!--    <item-->
 <!--        android:id="@+id/navigation_insights"-->

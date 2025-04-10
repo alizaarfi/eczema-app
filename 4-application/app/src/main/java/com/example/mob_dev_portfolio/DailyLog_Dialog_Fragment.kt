@@ -144,9 +144,7 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
             // Update visual indicator for today
             dayButtons.forEachIndexed { index, button ->
                 if (index == todayDayOfWeek) {
-                    // Add a special indicator for today
                     button.setTypeface(null, Typeface.BOLD)
-                    // Could also add an underline or other visual cue
                 } else {
                     button.setTypeface(null, Typeface.NORMAL)
                 }
@@ -155,7 +153,6 @@ class DailyLog_Dialog_Fragment : DialogFragment() {
 
         // Observe current week offset to adjust today highlight
         viewModel.currentWeekOffset.observe(viewLifecycleOwner) { offset ->
-            // Only show "today" indicator in current week
             val showTodayIndicator = offset == 0
             val todayDayOfWeek = viewModel.todayDayOfWeek.value ?: -1
 
