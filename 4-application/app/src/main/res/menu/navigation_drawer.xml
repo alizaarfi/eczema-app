@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/navigation_pdf"
-        android:icon="@drawable/download_icon"
-        android:title="Doctor's PDF"/>
+<!--    <item-->
+<!--        android:id="@+id/navigation_pdf"-->
+<!--        android:icon="@drawable/download_icon"-->
+<!--        android:title="Doctor's PDF"/>-->
     <item
         android:id="@+id/navigation_resources"
         android:icon="@drawable/resources_icon"
         android:title="Educational Resources"/>
     <item
-        android:id="@+id/navigation_insights"
-        android:icon="@drawable/insights_icon"
-        android:title="Insights"/>
+        android:id="@+id/navigation_SOS"
+        android:icon="@drawable/"
+        android:title="SOS First Aid Kit"/>
+    <!--    <item-->
+<!--        android:id="@+id/navigation_insights"-->
+<!--        android:icon="@drawable/insights_icon"-->
+<!--        android:title="Insights"/>-->
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/settings_icon"

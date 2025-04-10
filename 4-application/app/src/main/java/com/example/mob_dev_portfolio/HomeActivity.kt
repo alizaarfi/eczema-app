@@ -104,6 +104,11 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.navigation_resources -> {
+                    val intent = Intent(this, ResourcesActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 else -> false
             }
         }

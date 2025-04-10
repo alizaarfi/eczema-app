@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobdevportfolio">
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
-            android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".DiaryActivity"
-            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
+            android:name=".ResourcesActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar" />
+        <activity
+            android:name=".DiaryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar" />
+        <activity
             android:name=".DiaryEntryActivity"
-            android:theme="@style/Theme.Mobdevportfolio.NoActionBar"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.Mobdevportfolio.NoActionBar" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"

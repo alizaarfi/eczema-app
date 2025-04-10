@@ -8,7 +8,7 @@ import com.example.mob_dev_portfolio.data.entity.DailyLog_Entry
 import com.example.mob_dev_portfolio.data.dao.DailyLog_Dao
 import com.example.mob_dev_portfolio.data.dao.DiaryDao
 import com.example.mob_dev_portfolio.data.entity.DiaryEntry
-@Database(entities = [DailyLog_Entry::class, DiaryEntry::class], version = 2)
+@Database(entities = [DailyLog_Entry::class, DiaryEntry::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dailyLogDao(): DailyLog_Dao
     abstract fun diaryDao(): DiaryDao  // Make sure this is added

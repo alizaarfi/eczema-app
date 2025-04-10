@@ -27,6 +27,7 @@
             android:layout_height="52dp"
             android:text="SkinSync"
             android:textSize="30dp"
+            android:layout_gravity="center"
             android:textStyle="italic|bold"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="135dp" />
@@ -34,13 +35,17 @@
         <ImageView
             android:layout_width="160dp"
             android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/cleanhandsicon"
             android:src="@drawable/baseline_clean_hands_24" />
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="320dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="@color/white"
             android:contentDescription="@string/start"
