@@ -51,7 +51,7 @@
                 android:background="@drawable/rounded_corner"
                 android:backgroundTint="@android:color/holo_blue_dark"
                 android:padding="18dp"
-                android:text="Get Started"
+                android:text="Get Started peeps"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
